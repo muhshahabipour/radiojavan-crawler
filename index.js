@@ -110,8 +110,6 @@ app.get('/domain', function (req, res) {
       timeout: 35000
     })
     .then(function (response) {
-      console.log(response.data.host);
-
       console.log("\r\n");
       console.log("===============================================\r\n");
       console.log("host : " + response.data.host + "\r\n");
