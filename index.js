@@ -5,6 +5,26 @@ const axios = require('axios');
 
 const app = express()
 
+
+// Super simple algorithm to find largest prime <= n
+var calculatePrime = function(n){
+  var prime = 1;
+  for (var i = n; i > 1; i--) {
+    var is_prime = true;
+    for (var j = 2; j < i; j++) {
+      if (i % j == 0) {
+        is_prime = false;
+        break;
+      }
+    }
+    if (is_prime) {
+      prime = i;
+      break;
+    }
+  }
+  return prime;
+}
+
 // app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/', function (req, res) {
 
@@ -100,3 +120,11 @@ app.get('/domain', function (req, res) {
 })
 
 // app.listen(81, () => console.log('Example app listening on port 80!'))
+
+// Set template engine
+app.set('view engine', 'ejs')
+
+// Bind the app to a specified port
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log("Listening on port " + port);
