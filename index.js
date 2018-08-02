@@ -88,7 +88,7 @@ app.get('/domain', function (req, res) {
       params: {
         id: "Sasy-Che-Pesari"
       },
-      timeout: 30000,
+      timeout: 35000,
       proxy: {
         host: 'us.mybestport.com',
         port: 443,
