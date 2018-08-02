@@ -70,8 +70,7 @@ app.get('/', function (req, res) {
 
   // Queue just one URL, with default callback
   c.queue([{
-    uri: 'https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari',
-    proxy: 'http://ir129298:509875@us.mybestport.com:443/'
+    uri: 'https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari'
   }]);
 
   // https://host2.rjmusicmedia.com/media/mp3/mp3-256/Sasy-Che-Pesari.mp3
@@ -88,15 +87,7 @@ app.get('/domain', function (req, res) {
       params: {
         id: "Sasy-Che-Pesari"
       },
-      timeout: 35000,
-      proxy: {
-        host: 'us.mybestport.com',
-        port: 443,
-        auth: {
-          username: 'ir129298',
-          password: '509875'
-        }
-      }
+      timeout: 35000
     })
     .then(function (response) {
       console.log(response.data);
