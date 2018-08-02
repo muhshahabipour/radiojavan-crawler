@@ -99,4 +99,4 @@ app.get('/domain', function (req, res) {
   res.send("domain")
 })
 
-app.listen(3001, () => console.log('Example app listening on port 3001!'))
+app.listen(80, () => console.log('Example app listening on port 80!'))
