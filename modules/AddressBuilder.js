@@ -137,7 +137,7 @@ class AddressBuilder {
                                     console.log(currentMP3Type);
 
                                     this.key = currentMP3Perm;
-                                    this.filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
+                                    this.filePath = "/media/" + currentMP3Url + "." + currentMP3Type;
 
                                     break;
                                 case "video":
@@ -178,7 +178,7 @@ class AddressBuilder {
                                     }
 
                                     this.key = videoPermlink;
-                                    this.filePath = +"/media/" + video1080p;
+                                    this.filePath = "/media/" + video1080p;
 
                                     break;
                                 case "podcast":
