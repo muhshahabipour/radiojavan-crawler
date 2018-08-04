@@ -132,10 +132,6 @@ class AddressBuilder {
                                         });
                                     }
 
-                                    // console.log("currentMP3Perm", currentMP3Perm);
-                                    // console.log("currentMP3Url", currentMP3Url);
-                                    // console.log("currentMP3Type", currentMP3Type);
-
                                     this.key = currentMP3Perm;
                                     this.filePath = "/media/" + currentMP3Url + "." + currentMP3Type;
 
@@ -177,17 +173,12 @@ class AddressBuilder {
                                         });
                                     }
 
-
-
-                                    // console.log(video1080p);
-                                    // console.log(videoPermlink);
-
-
                                     this.key = videoPermlink;
-                                    this.filePath = "/media/" + video1080p;
+                                    this.filePath = video1080p;
 
                                     break;
                                 case "podcast":
+                                    console.log(body);
 
 
                                     break;
