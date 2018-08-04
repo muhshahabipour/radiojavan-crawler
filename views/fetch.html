@@ -12,18 +12,19 @@
 
 <body>
 
-  <div class="container d-flex justify-content-center" style="min-height: calc(100vh - 16px);">
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 16px);">
 
-    <div class="d-inline-flex align-items-center">
-      <form class="form">
-        <div class="form-group mx-sm-3 mb-2">
-          <%= downloadLink %>
-        </div>
-        <!-- <button type="button" onclick="history.back()" class="btn btn-secondary mb-2">back</button> -->
-        <a role="button" href="/" class="btn btn-secondary mb-2">back</a>
-      </form>
+    <div class="row">
+      <div class="col-sm d-flex justify-content-center align-items-center">
+        <%= downloadLink %>
+      </div>
     </div>
 
+    <div class="row">
+      <div class="col-sm d-flex justify-content-center align-items-center">
+        <a role="button" href="/" class="btn btn-secondary mb-2">back</a>
+      </div>
+    </div>
 
   </div>
 

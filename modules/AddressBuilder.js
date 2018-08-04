@@ -247,9 +247,9 @@ class AddressBuilder {
                 return await getHost(this.key, this.type).then((host) => {
                     console.log("address", host + this.filePath)
                     this.downloadLink = host + this.filePath
-                    return this.downloadLink
+                    return this.downloadLink;
                 }).catch(() => {
-                    return ""
+                    return "";
                 });
             }
 
