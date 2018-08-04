@@ -92,13 +92,11 @@ class AddressBuilder {
 
             async crawler() {
 
-                
                 var c = new Crawler({
                     maxConnections: 10,
                     skipDuplicates: false,
                     // This will be called for each crawled page
-                    callback: await
-                    function (error, res, done) {
+                    callback: (error, res, done) => {
                         if (error) {
                             console.log(error);
                             return "not found."
