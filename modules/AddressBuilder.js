@@ -63,6 +63,8 @@ class AddressBuilder {
                 this.url = url;
                 this.type = "unknown";
                 this.downloadLink = "";
+                this.filePath = "/";
+                this.key = "";
             }
 
             detectType() {
@@ -87,10 +89,9 @@ class AddressBuilder {
                 return this;
             }
 
-            async crawler() {
+            crawler() {
 
-                let filePath = "/";
-                let key = "";
+              
 
 
                 var c = new Crawler({
@@ -133,8 +134,8 @@ class AddressBuilder {
                                         });
                                     }
 
-                                    key = currentMP3Perm;
-                                    filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
+                                    this.key = currentMP3Perm;
+                                    this.filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
 
                                     break;
                                 case "video":
@@ -174,8 +175,8 @@ class AddressBuilder {
                                         });
                                     }
 
-                                    key = videoPermlink;
-                                    filePath = +"/media/" + video1080p;
+                                    this.key = videoPermlink;
+                                    this.filePath = +"/media/" + video1080p;
 
                                     break;
                                 case "podcast":
@@ -194,8 +195,8 @@ class AddressBuilder {
                             // console.log($("title").text());
                         }
 
-                        this.downloadLink = await getHost(key).then((host)=>{
-                            this.downloadLink = host + filePath
+                        this.downloadLink = await getHost(this.key).then((host)=>{
+                            this.downloadLink = host + this.filePath
                             done();
                         }).catch(()=>{
                             this.downloadLink = "dsafssf"
