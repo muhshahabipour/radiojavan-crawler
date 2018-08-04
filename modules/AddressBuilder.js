@@ -39,7 +39,7 @@ getHost = (id) => {
     }).then(function (response) {
 
         if (has(response, "data") && has(response.data, "host")) {
-            return response.data.host + filePath;
+            return response.data.host;
         } else {
 
             return ("");
@@ -63,8 +63,6 @@ class AddressBuilder {
                 this.url = url;
                 this.type = "unknown";
                 this.downloadLink = "";
-                this.filePath = "/";
-                this.key = "";
             }
 
             detectType() {
@@ -91,7 +89,8 @@ class AddressBuilder {
 
             crawler() {
 
-              
+                let filePath = "/";
+                let key = "";
 
 
                 var c = new Crawler({
@@ -134,8 +133,8 @@ class AddressBuilder {
                                         });
                                     }
 
-                                    this.key = currentMP3Perm;
-                                    this.filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
+                                    key = currentMP3Perm;
+                                    filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
 
                                     break;
                                 case "video":
@@ -175,8 +174,8 @@ class AddressBuilder {
                                         });
                                     }
 
-                                    this.key = videoPermlink;
-                                    this.filePath = +"/media/" + video1080p;
+                                    key = videoPermlink;
+                                    filePath = +"/media/" + video1080p;
 
                                     break;
                                 case "podcast":
@@ -195,8 +194,8 @@ class AddressBuilder {
                             // console.log($("title").text());
                         }
 
-                        this.downloadLink = await getHost(this.key).then((host)=>{
-                            this.downloadLink = host + this.filePath
+                        this.downloadLink = await getHost(key).then((host)=>{
+                            this.downloadLink = host + filePath
                             done();
                         }).catch(()=>{
                             this.downloadLink = "dsafssf"
