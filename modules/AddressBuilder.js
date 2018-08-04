@@ -95,7 +95,8 @@ class AddressBuilder {
                     maxConnections: 10,
                     skipDuplicates: false,
                     // This will be called for each crawled page
-                    callback: await function (error, res, done) {
+                    callback: await
+                    function (error, res, done) {
                         if (error) {
                             console.log(error);
                             return "not found."
@@ -103,7 +104,7 @@ class AddressBuilder {
                             var $ = res.$;
                             const body = res.body;
 
-                            console.log(body);
+                            // console.log(body);
 
 
                             switch (this.type) {
@@ -130,6 +131,10 @@ class AddressBuilder {
                                             currentMP3Perm = g4;
                                         });
                                     }
+
+                                    console.log(currentMP3Perm);
+                                    console.log(currentMP3Url);
+                                    console.log(currentMP3Type);
 
                                     this.key = currentMP3Perm;
                                     this.filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
@@ -187,7 +192,7 @@ class AddressBuilder {
                             }
 
 
-                            console.log("filePath" , this.filePath)
+                            console.log("filePath", this.filePath)
                             // console.log($("title").text());
                         }
                         done();
