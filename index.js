@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/fetch', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.redirect('/');
 })
 
 app.post('/fetch', async function (req, res) {
