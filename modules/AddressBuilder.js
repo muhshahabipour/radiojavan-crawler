@@ -91,6 +91,8 @@ class AddressBuilder {
             }
 
             async crawler() {
+
+                
                 var c = new Crawler({
                     maxConnections: 10,
                     skipDuplicates: false,
@@ -176,6 +178,12 @@ class AddressBuilder {
                                             videoPermlink = g4;
                                         });
                                     }
+
+
+
+                                    console.log(video1080p);
+                                    console.log(videoPermlink);
+
 
                                     this.key = videoPermlink;
                                     this.filePath = "/media/" + video1080p;
