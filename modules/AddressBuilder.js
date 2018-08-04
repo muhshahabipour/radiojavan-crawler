@@ -196,9 +196,11 @@ class AddressBuilder {
 
                         this.downloadLink = await getHost(key).then((host)=>{
                             this.downloadLink = host + filePath
+                            console.log("host", host)
                             done();
                         }).catch(()=>{
                             this.downloadLink = "dsafssf"
+                            console.error("sfafsafsa")
                             done();
                         });
                         
