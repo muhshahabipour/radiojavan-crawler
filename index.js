@@ -10,11 +10,11 @@ app.get('/', async function (req, res) {
   // var address = RjUtility.getAddress("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam");
 
   let crawler = new AddressBuilder.Builder("https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari").detectType().crawler();
-  // await crawler.then((response) => {
-  //   response.getDownloadLink().then((address) => {
-  //     res.send(address);
-  //   })
-  // });
+  await crawler.then((response) => {
+    response.getDownloadLink().then((address) => {
+      res.send(address);
+    })
+  });
 
 
 })
