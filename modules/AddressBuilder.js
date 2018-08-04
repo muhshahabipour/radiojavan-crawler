@@ -209,12 +209,12 @@ class AddressBuilder {
             }
 
             getDownloadLink() {
-                return getHost(this.key).then((host) => {
-                    this.downloadLink = host + this.filePath
+                getHost(this.key).then((host) => {
                     console.log("host", host)
+                    return this.downloadLink = host + this.filePath
                 }).catch(() => {
-                    this.downloadLink = "dsafssf"
                     console.error("sfafsafsa")
+                    return this.downloadLink = "dsafssf"
                 });
             }
 
