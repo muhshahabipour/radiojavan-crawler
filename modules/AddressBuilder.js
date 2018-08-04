@@ -198,30 +198,30 @@ class AddressBuilder {
 
                                     break;
                                 case "podcast":
-                                    let currentMP3Url = body,
-                                        currentMP3Type = body,
-                                        currentMP3Perm = body;
+                                    let currentPodcastUrl = body,
+                                        currentPodcastType = body,
+                                        currentPodcastPerm = body;
 
-                                    if (currentMP3Url.match(patterns.file.podcast.currentMP3Url)) {
-                                        currentMP3Url.replace(patterns.file.podcast.currentMP3Url, function (match, g1, g2, g3, g4) {
-                                            currentMP3Url = g4;
+                                    if (currentPodcastUrl.match(patterns.file.podcast.currentMP3Url)) {
+                                        currentPodcastUrl.replace(patterns.file.podcast.currentMP3Url, function (match, g1, g2, g3, g4) {
+                                            currentPodcastUrl = g4;
                                         });
                                     }
 
-                                    if (currentMP3Type.match(patterns.file.podcast.currentMP3Type)) {
-                                        currentMP3Type.replace(patterns.file.podcast.currentMP3Type, function (match, g1, g2, g3, g4) {
-                                            currentMP3Type = g4;
+                                    if (currentPodcastType.match(patterns.file.podcast.currentMP3Type)) {
+                                        currentPodcastType.replace(patterns.file.podcast.currentMP3Type, function (match, g1, g2, g3, g4) {
+                                            currentPodcastType = g4;
                                         });
                                     }
 
-                                    if (currentMP3Perm.match(patterns.file.podcast.currentMP3Perm)) {
-                                        currentMP3Perm.replace(patterns.file.podcast.currentMP3Perm, function (match, g1, g2, g3, g4) {
-                                            currentMP3Perm = g4;
+                                    if (currentPodcastPerm.match(patterns.file.podcast.currentMP3Perm)) {
+                                        currentPodcastPerm.replace(patterns.file.podcast.currentMp3Perm, function (match, g1, g2, g3, g4) {
+                                            currentPodcastPerm = g4;
                                         });
                                     }
 
-                                    this.key = currentMP3Perm;
-                                    this.filePath = "/media/" + currentMP3Url + ".mp3";
+                                    this.key = currentPodcastPerm;
+                                    this.filePath = "/media/" + currentPodcastUrl + ".mp3";
                                     break;
                                 default:
                                     break;
