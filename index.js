@@ -5,6 +5,8 @@ const AddressBuilder = require('./modules/AddressBuilder');
 
 const app = express();
 
+app.use(express.static('node_modules'))
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
   extended: true
