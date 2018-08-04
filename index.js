@@ -25,6 +25,7 @@ app.post('/fetch', async function (req, res) {
   // var address = RjUtility.getAddress("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam");
 
   var url = req.body.url;
+  console.warn("url is", url)
 
   let crawler = new AddressBuilder.Builder(url).detectType().crawler();
   await crawler.then((response) => {
