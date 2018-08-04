@@ -26,6 +26,7 @@ app.post('/fetch', async function (req, res) {
 
   var url = req.body.url;
   console.warn("url is", url)
+  console.log(req.body)
 
   let crawler = new AddressBuilder.Builder(url).detectType().crawler();
   await crawler.then((response) => {
