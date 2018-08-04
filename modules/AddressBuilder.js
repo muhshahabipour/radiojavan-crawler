@@ -30,8 +30,8 @@ const patterns = {
 }
 
 
-getHost = (id) => {
-    return axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
+getHost = async (id) => {
+    return await axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
             params: {
                 id: id || "Sasy-Che-Pesari"
             },
@@ -90,17 +90,12 @@ class AddressBuilder {
                 return this;
             }
 
-            crawler() {
-
-                let filePath = "/";
-                let key = "";
-
-
+            async crawler() {
                 var c = new Crawler({
                     maxConnections: 10,
                     skipDuplicates: false,
                     // This will be called for each crawled page
-                    callback: function (error, res, done) {
+                    callback: await function (error, res, done) {
                         if (error) {
                             console.log(error);
                             return "not found."
@@ -190,13 +185,11 @@ class AddressBuilder {
 
                                     break;
                             }
-
-
-
-
                             // console.log($("title").text());
+                            console.log("Here 01");
                         }
                         done();
+                        console.log("Here 02");
                     }
                 });
 
@@ -205,11 +198,14 @@ class AddressBuilder {
                     uri: this.url
                 }]);
 
+                console.log("Here 03");
+
+
                 return this;
             }
 
-            getDownloadLink() {
-                getHost(this.key).then((host) => {
+            async getDownloadLink() {
+                await getHost(this.key).then((host) => {
                     console.log("host", host)
                     return this.downloadLink = host + this.filePath
                 }).catch(() => {
