@@ -18,6 +18,7 @@
     "lodash": "^4.17.10"
   },
   "scripts": {
+    "preLoad": "npm install",
     "start": "node index.js"
   },
   "repository": {
