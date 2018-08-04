@@ -12,7 +12,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); // support encoded bodies
 
+app.engine('html', require('ejs').renderFile);
 
+app.set('view engine', 'html');
+app.set('views', __dirname);
 
 
 app.get('/', function (req, res) {
@@ -20,10 +23,6 @@ app.get('/', function (req, res) {
 })
 
 app.post('/fetch', async function (req, res) {
-  // https://host2.rjmusicmedia.com/media/mp3/mp3-256/Sasy-Che-Pesari.mp3
-  // "https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari"
-  // var address = RjUtility.getAddress("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam");
-
   var url = req.body.url;
   console.warn("url is", url)
   console.log(req.body)
@@ -31,10 +30,16 @@ app.post('/fetch', async function (req, res) {
   let crawler = new AddressBuilder.Builder(url).detectType().crawler();
   await crawler.then((response) => {
     response.getDownloadLink().then((address) => {
-      res.send(address);
+      // res.send(address);
+      res.render("fetch", {
+        downloadLink: address
+      });
     })
   }).catch(() => {
-    res.send("not found!!");
+    res.render("fetch", {
+      downloadLink: "not found!!"
+    });
+    // res.send("not found!!");
   });
 })
 

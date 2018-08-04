@@ -24,14 +24,34 @@ const patterns = {
             videoPermlink: /(RJ(.){1}videoPermlink(\s=\s'))(.*)(';)/gm
         },
         podcast: {
-
+            currentMP3Url: /(RJ(.){1}currentMP3Url(\s=\s'))(.*)(';)/gm,
+            currentMP3Type: /(RJ(.){1}currentMP3Type(\s=\s'))(.*)(';)/gm,
+            currentMP3Perm: /(RJ(.){1}currentMP3Perm(\s=\s'))(.*)(';)/gm,
         }
     }
 }
 
 
-getHost = async (id) => {
-    return await axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
+getHost = async (id, type) => {
+    let url = ""
+
+    switch (type) {
+        case "mp3":
+            url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
+            break;
+        case "video":
+            url = constant.VIDEO_DOMAIN_REQUEST_ADDRESS;
+            break;
+        case "podcast":
+            url = constant.PODCAST_DOMAIN_REQUEST_ADDRESS;
+            break;
+        default:
+            url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
+            break;
+    }
+
+
+    return await axios.get(url, {
             params: {
                 id: id || "Sasy-Che-Pesari"
             },
@@ -178,13 +198,32 @@ class AddressBuilder {
 
                                     break;
                                 case "podcast":
-                                    console.log(body);
+                                    let currentMP3Url = body,
+                                        currentMP3Type = body,
+                                        currentMP3Perm = body;
 
+                                    if (currentMP3Url.match(patterns.file.podcast.currentMP3Url)) {
+                                        currentMP3Url.replace(patterns.file.podcast.currentMP3Url, function (match, g1, g2, g3, g4) {
+                                            currentMP3Url = g4;
+                                        });
+                                    }
 
+                                    if (currentMP3Type.match(patterns.file.podcast.currentMP3Type)) {
+                                        currentMP3Type.replace(patterns.file.podcast.currentMP3Type, function (match, g1, g2, g3, g4) {
+                                            currentMP3Type = g4;
+                                        });
+                                    }
+
+                                    if (currentMP3Perm.match(patterns.file.podcast.currentMP3Perm)) {
+                                        currentMP3Perm.replace(patterns.file.podcast.currentMP3Perm, function (match, g1, g2, g3, g4) {
+                                            currentMP3Perm = g4;
+                                        });
+                                    }
+
+                                    this.key = currentMP3Perm;
+                                    this.filePath = "/media/" + currentMP3Url + ".mp3";
                                     break;
                                 default:
-
-
                                     break;
                             }
 
@@ -205,7 +244,7 @@ class AddressBuilder {
             }
 
             async getDownloadLink() {
-                return await getHost(this.key).then((host) => {
+                return await getHost(this.key, this.type).then((host) => {
                     console.log("address", host + this.filePath)
                     this.downloadLink = host + this.filePath
                     return this.downloadLink
