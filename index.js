@@ -6,14 +6,15 @@ const app = express();
 
 app.get('/', async function (req, res) {
   // https://host2.rjmusicmedia.com/media/mp3/mp3-256/Sasy-Che-Pesari.mp3
+  // "https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari"
   // var address = RjUtility.getAddress("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam");
 
-  let crawler = new AddressBuilder.Builder("https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari").detectType().crawler();
-  await crawler.then((response) => {
-    response.getDownloadLink().then((address) => {
-      res.send(address);
-    })
-  });
+  let crawler = new AddressBuilder.Builder(req.query.address).detectType().crawler();
+  // await crawler.then((response) => {
+  //   response.getDownloadLink().then((address) => {
+  //     res.send(address);
+  //   })
+  // });
 
 
 })
