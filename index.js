@@ -29,8 +29,8 @@ app.get('/fetch', function (req, res) {
 
 app.post('/fetch', async function (req, res) {
   var url = req.body.url;
-  let crawler = await new AddressBuilder.Builder(url).detectType().crawler();
-  crawler.then((response) => {
+  await new AddressBuilder.Builder(url).detectType().crawler()
+  .then((response) => {
     response.getDownloadLink().then((address) => {
       res.render("fetch", {
         downloadLink: address
