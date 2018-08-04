@@ -22,6 +22,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 })
 
+
+app.get('/fetch', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
+})
+
 app.post('/fetch', async function (req, res) {
   var url = req.body.url;
   let crawler = new AddressBuilder.Builder(url).detectType().crawler();
