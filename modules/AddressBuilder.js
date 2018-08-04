@@ -30,12 +30,24 @@ const patterns = {
 }
 
 
-getHost = async (id) => {
-    return await axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
+getHost = (id) => {
+    return axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
         params: {
             id: id || "Sasy-Che-Pesari"
         },
         timeout: 35000
+    }).then(function (response) {
+
+        if (has(response, "data") && has(response.data, "host")) {
+            return response.data.host + filePath;
+        } else {
+
+            return ("");
+        }
+    })
+    .catch(function (error) {
+        console.error(error);
+        return ("");
     })
 }
 
@@ -175,23 +187,21 @@ class AddressBuilder {
 
                                     break;
                             }
-                            this.downloadLink = await getHost(key).then(function (response) {
 
-                                    if (has(response, "data") && has(response.data, "host")) {
-                                        return response.data.host + filePath;
-                                    } else {
 
-                                        return ("");
-                                    }
-                                })
-                                .catch(function (error) {
-                                    console.error(error);
-                                    return ("");
-                                });
+                            
 
                             // console.log($("title").text());
                         }
-                        done();
+
+                        this.downloadLink = await getHost(key).then((host)=>{
+                            this.downloadLink = host + filePath
+                            done();
+                        }).catch(()=>{
+                            this.downloadLink = "dsafssf"
+                            done();
+                        });
+                        
                     }
                 });
 
