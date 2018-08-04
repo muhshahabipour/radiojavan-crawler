@@ -9,9 +9,13 @@ app.get('/', async function (req, res) {
   // var address = RjUtility.getAddress("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam");
 
   let crawler = new AddressBuilder.Builder("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam").detectType().crawler();
-  let address = await crawler.then((response) => response.getDownloadLink());
+  await crawler.then((response) => {
+    response.getDownloadLink().then((address) => {
+      res.send(address);
+    })
+  });
 
-  res.send(address);
+
 })
 
 app.get('/domain', function (req, res) {
