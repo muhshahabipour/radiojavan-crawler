@@ -29,10 +29,9 @@ app.get('/fetch', function (req, res) {
 
 app.post('/fetch', async function (req, res) {
   var url = req.body.url;
-  let crawler = new AddressBuilder.Builder(url).detectType().crawler();
-  await crawler.then((response) => {
+  let crawler = await new AddressBuilder.Builder(url).detectType().crawler();
+  crawler.then((response) => {
     response.getDownloadLink().then((address) => {
-      // res.send(address);
       res.render("fetch", {
         downloadLink: address
       });
@@ -41,7 +40,6 @@ app.post('/fetch', async function (req, res) {
     res.render("fetch", {
       downloadLink: "not found!!"
     });
-    // res.send("not found!!");
   });
 })
 
