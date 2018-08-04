@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
-const AddressBuilder = require('./modules/AddressBuilder')
+const path = require("path");
+const AddressBuilder = require('./modules/AddressBuilder');
 
 const app = express();
 
@@ -13,12 +14,10 @@ app.use(bodyParser.urlencoded({
 
 
 app.get('/', function (req, res) {
-
-  res.render("index");
-
+  res.sendFile(path.join(__dirname + '/index.html'));
 })
 
-app.post('/fetch',async function (req, res) {
+app.post('/fetch', async function (req, res) {
   // https://host2.rjmusicmedia.com/media/mp3/mp3-256/Sasy-Che-Pesari.mp3
   // "https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari"
   // var address = RjUtility.getAddress("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam");
