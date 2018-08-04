@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "js-crawler": "^0.3.21"
   },
   "devDependencies": {
