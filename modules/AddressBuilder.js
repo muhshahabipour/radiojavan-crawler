@@ -207,7 +207,7 @@ class AddressBuilder {
                 });
 
                 // Queue just one URL, with default callback
-                await c.queue([{
+                c.queue([{
                     uri: this.url
                 }]);
 
