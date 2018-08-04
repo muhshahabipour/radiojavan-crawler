@@ -32,44 +32,7 @@ const patterns = {
 }
 
 
-getHost = async (id, type) => {
-    let url = ""
-
-    switch (type) {
-        case "mp3":
-            url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
-            break;
-        case "video":
-            url = constant.VIDEO_DOMAIN_REQUEST_ADDRESS;
-            break;
-        case "podcast":
-            url = constant.PODCAST_DOMAIN_REQUEST_ADDRESS;
-            break;
-        default:
-            url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
-            break;
-    }
-
-
-    return await axios.get(url, {
-            params: {
-                id: id || "Sasy-Che-Pesari"
-            },
-            timeout: 35000
-        }).then(function (response) {
-
-            if (has(response, "data") && has(response.data, "host")) {
-                return response.data.host;
-            } else {
-
-                return ("");
-            }
-        })
-        .catch(function (error) {
-            console.error(error);
-            return ("");
-        })
-}
+var self = null;
 
 class AddressBuilder {
 
@@ -86,6 +49,8 @@ class AddressBuilder {
                 this.filePath = "/";
                 this.key = "";
                 this.downloadLink = "";
+
+                self = this;
             }
 
             detectType() {
@@ -110,147 +75,172 @@ class AddressBuilder {
                 return this;
             }
 
-            async crawler() {
+            crawler() {
+                axios.get(this.url)
+                    .then(function (response) {
+                        // handle success
+                        // console.log(response.data);
 
-                var c = new Crawler({
-                    maxConnections: 10,
-                    skipDuplicates: false,
-                    // This will be called for each crawled page
-                    callback: (error, res, done) => {
-                        if (error) {
-                            console.log(error);
-                            return "not found."
-                        } else {
-                            var $ = res.$;
-                            const body = res.body;
+                        var body = response.data;
 
-                            // console.log(body);
+                        switch (self.type) {
+                            case "music":
 
+                                let currentMP3Url = body,
+                                    currentMP3Type = body,
+                                    currentMP3Perm = body;
 
-                            switch (this.type) {
-                                case "music":
+                                if (currentMP3Url.match(patterns.file.mp3.currentMP3Url)) {
+                                    currentMP3Url.replace(patterns.file.mp3.currentMP3Url, function (match, g1, g2, g3, g4) {
+                                        currentMP3Url = g4;
+                                    });
+                                }
 
-                                    let currentMP3Url = body,
-                                        currentMP3Type = body,
-                                        currentMP3Perm = body;
+                                if (currentMP3Type.match(patterns.file.mp3.currentMP3Type)) {
+                                    currentMP3Type.replace(patterns.file.mp3.currentMP3Type, function (match, g1, g2, g3, g4) {
+                                        currentMP3Type = g4;
+                                    });
+                                }
 
-                                    if (currentMP3Url.match(patterns.file.mp3.currentMP3Url)) {
-                                        currentMP3Url.replace(patterns.file.mp3.currentMP3Url, function (match, g1, g2, g3, g4) {
-                                            currentMP3Url = g4;
-                                        });
-                                    }
+                                if (currentMP3Perm.match(patterns.file.mp3.currentMP3Perm)) {
+                                    currentMP3Perm.replace(patterns.file.mp3.currentMP3Perm, function (match, g1, g2, g3, g4) {
+                                        currentMP3Perm = g4;
+                                    });
+                                }
 
-                                    if (currentMP3Type.match(patterns.file.mp3.currentMP3Type)) {
-                                        currentMP3Type.replace(patterns.file.mp3.currentMP3Type, function (match, g1, g2, g3, g4) {
-                                            currentMP3Type = g4;
-                                        });
-                                    }
+                                self.key = currentMP3Perm;
+                                self.filePath = "/media/" + currentMP3Url + "." + currentMP3Type;
 
-                                    if (currentMP3Perm.match(patterns.file.mp3.currentMP3Perm)) {
-                                        currentMP3Perm.replace(patterns.file.mp3.currentMP3Perm, function (match, g1, g2, g3, g4) {
-                                            currentMP3Perm = g4;
-                                        });
-                                    }
+                                break;
+                            case "video":
+                                let video480p = body,
+                                    video720p = body,
+                                    video1080p = body,
+                                    video4k = body,
+                                    videoPermlink = body;
 
-                                    this.key = currentMP3Perm;
-                                    this.filePath = "/media/" + currentMP3Url + "." + currentMP3Type;
+                                if (video480p.match(patterns.file.video.video480p)) {
+                                    video480p.replace(patterns.file.video.video480p, function (match, g1, g2, g3, g4) {
+                                        video480p = g4;
+                                    });
+                                }
 
-                                    break;
-                                case "video":
-                                    let video480p = body,
-                                        video720p = body,
-                                        video1080p = body,
-                                        video4k = body,
-                                        videoPermlink = body;
+                                if (video720p.match(patterns.file.video.video720p)) {
+                                    video720p.replace(patterns.file.video.video480p, function (match, g1, g2, g3, g4) {
+                                        video720p = g4;
+                                    });
+                                }
 
-                                    if (video480p.match(patterns.file.video.video480p)) {
-                                        video480p.replace(patterns.file.video.video480p, function (match, g1, g2, g3, g4) {
-                                            video480p = g4;
-                                        });
-                                    }
+                                if (video1080p.match(patterns.file.video.video1080p)) {
+                                    video1080p.replace(patterns.file.video.video1080p, function (match, g1, g2, g3, g4) {
+                                        video1080p = g4;
+                                    });
+                                }
 
-                                    if (video720p.match(patterns.file.video.video720p)) {
-                                        video720p.replace(patterns.file.video.video480p, function (match, g1, g2, g3, g4) {
-                                            video720p = g4;
-                                        });
-                                    }
+                                if (video4k.match(patterns.file.video.video4k)) {
+                                    video4k.replace(patterns.file.video.video4k, function (match, g1, g2, g3, g4) {
+                                        video4k = g4;
+                                    });
+                                }
 
-                                    if (video1080p.match(patterns.file.video.video1080p)) {
-                                        video1080p.replace(patterns.file.video.video1080p, function (match, g1, g2, g3, g4) {
-                                            video1080p = g4;
-                                        });
-                                    }
+                                if (videoPermlink.match(patterns.file.video.videoPermlink)) {
+                                    videoPermlink.replace(patterns.file.video.videoPermlink, function (match, g1, g2, g3, g4) {
+                                        videoPermlink = g4;
+                                    });
+                                }
 
-                                    if (video4k.match(patterns.file.video.video4k)) {
-                                        video4k.replace(patterns.file.video.video4k, function (match, g1, g2, g3, g4) {
-                                            video4k = g4;
-                                        });
-                                    }
+                                self.key = videoPermlink;
+                                self.filePath = video1080p;
 
-                                    if (videoPermlink.match(patterns.file.video.videoPermlink)) {
-                                        videoPermlink.replace(patterns.file.video.videoPermlink, function (match, g1, g2, g3, g4) {
-                                            videoPermlink = g4;
-                                        });
-                                    }
+                                break;
+                            case "podcast":
+                                let currentPodcastUrl = body,
+                                    currentPodcastType = body,
+                                    currentPodcastPerm = body;
 
-                                    this.key = videoPermlink;
-                                    this.filePath = video1080p;
+                                if (currentPodcastUrl.match(patterns.file.podcast.currentMP3Url)) {
+                                    currentPodcastUrl.replace(patterns.file.podcast.currentMP3Url, function (match, g1, g2, g3, g4) {
+                                        currentPodcastUrl = g4;
+                                    });
+                                }
 
-                                    break;
-                                case "podcast":
-                                    let currentPodcastUrl = body,
-                                        currentPodcastType = body,
-                                        currentPodcastPerm = body;
+                                if (currentPodcastType.match(patterns.file.podcast.currentMP3Type)) {
+                                    currentPodcastType.replace(patterns.file.podcast.currentMP3Type, function (match, g1, g2, g3, g4) {
+                                        currentPodcastType = g4;
+                                    });
+                                }
 
-                                    if (currentPodcastUrl.match(patterns.file.podcast.currentMP3Url)) {
-                                        currentPodcastUrl.replace(patterns.file.podcast.currentMP3Url, function (match, g1, g2, g3, g4) {
-                                            currentPodcastUrl = g4;
-                                        });
-                                    }
+                                if (currentPodcastPerm.match(patterns.file.podcast.currentMP3Perm)) {
+                                    currentPodcastPerm.replace(patterns.file.podcast.currentMp3Perm, function (match, g1, g2, g3, g4) {
+                                        currentPodcastPerm = g4;
+                                    });
+                                }
 
-                                    if (currentPodcastType.match(patterns.file.podcast.currentMP3Type)) {
-                                        currentPodcastType.replace(patterns.file.podcast.currentMP3Type, function (match, g1, g2, g3, g4) {
-                                            currentPodcastType = g4;
-                                        });
-                                    }
-
-                                    if (currentPodcastPerm.match(patterns.file.podcast.currentMP3Perm)) {
-                                        currentPodcastPerm.replace(patterns.file.podcast.currentMp3Perm, function (match, g1, g2, g3, g4) {
-                                            currentPodcastPerm = g4;
-                                        });
-                                    }
-
-                                    this.key = currentPodcastPerm;
-                                    this.filePath = "/media/" + currentPodcastUrl + ".mp3";
-                                    break;
-                                default:
-                                    break;
-                            }
-
-
-                            console.log("filePath", this.filePath)
-                            // console.log($("title").text());
+                                self.key = currentPodcastPerm;
+                                self.filePath = "/media/" + currentPodcastUrl + ".mp3";
+                                break;
+                            default:
+                                break;
                         }
-                        done();
-                    }
-                });
 
-                // Queue just one URL, with default callback
-                c.queue([{
-                    uri: this.url
-                }]);
+
+                        console.log("filePath", self.filePath)
+
+                        let url = "";
+
+                        switch (self.type) {
+                            case "mp3":
+                                url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
+                                break;
+                            case "video":
+                                url = constant.VIDEO_DOMAIN_REQUEST_ADDRESS;
+                                break;
+                            case "podcast":
+                                url = constant.PODCAST_DOMAIN_REQUEST_ADDRESS;
+                                break;
+                            default:
+                                url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
+                                break;
+                        }
+
+
+                        axios.get(url, {
+                                params: {
+                                    id: self.key
+                                }
+                            }).then(function (response) {
+                                console.log("asdsds", response)
+
+                                if (has(response, "data") && has(response.data, "host")) {
+                                    self.host = response.data.host;
+                                    self.downloadLink = self.host + self.filePath
+                                } else {
+                                    self.host = "";
+                                    self.downloadLink = "not found!";
+                                }
+                            })
+                            .catch(function (error) {
+                                console.error(error);
+                                self.host = "";
+                                self.downloadLink = "not found!";
+                            })
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+
+
 
                 return this;
             }
 
-            async getDownloadLink() {
-                return await getHost(this.key, this.type).then((host) => {
-                    console.log("address", host + this.filePath)
-                    this.downloadLink = host + this.filePath
-                    return this.downloadLink;
-                }).catch(() => {
-                    return "";
-                });
+            getDownloadLink() {
+                return this.downloadLink;
             }
 
             build() {

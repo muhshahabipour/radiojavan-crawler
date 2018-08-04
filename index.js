@@ -48,18 +48,10 @@ app.get('/fetch', function (req, res) {
 
 app.post('/fetch', async function (req, res) {
   var url = req.body.url;
-  await new AddressBuilder.Builder(url).detectType().crawler()
-    .then((response) => {
-      response.getDownloadLink().then((address) => {
-        res.render("fetch", {
-          downloadLink: address
-        });
-      })
-    }).catch(() => {
-      res.render("fetch", {
-        downloadLink: "not found!!"
-      });
-    });
+  var address = await new AddressBuilder.Builder(url).detectType().crawler().getDownloadLink();
+  res.render("fetch", {
+    downloadLink: address
+  });
 });
 
 
