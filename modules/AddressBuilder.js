@@ -32,23 +32,23 @@ const patterns = {
 
 getHost = (id) => {
     return axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
-        params: {
-            id: id || "Sasy-Che-Pesari"
-        },
-        timeout: 35000
-    }).then(function (response) {
+            params: {
+                id: id || "Sasy-Che-Pesari"
+            },
+            timeout: 35000
+        }).then(function (response) {
 
-        if (has(response, "data") && has(response.data, "host")) {
-            return response.data.host;
-        } else {
+            if (has(response, "data") && has(response.data, "host")) {
+                return response.data.host;
+            } else {
 
+                return ("");
+            }
+        })
+        .catch(function (error) {
+            console.error(error);
             return ("");
-        }
-    })
-    .catch(function (error) {
-        console.error(error);
-        return ("");
-    })
+        })
 }
 
 class AddressBuilder {
@@ -62,6 +62,9 @@ class AddressBuilder {
             constructor(url) {
                 this.url = url;
                 this.type = "unknown";
+                this.downloadLink = "";
+                this.filePath = "";
+                this.key = "";
                 this.downloadLink = "";
             }
 
@@ -97,7 +100,7 @@ class AddressBuilder {
                     maxConnections: 10,
                     skipDuplicates: false,
                     // This will be called for each crawled page
-                    callback: async function (error, res, done) {
+                    callback: function (error, res, done) {
                         if (error) {
                             console.log(error);
                             return "not found."
@@ -133,8 +136,8 @@ class AddressBuilder {
                                         });
                                     }
 
-                                    key = currentMP3Perm;
-                                    filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
+                                    this.key = currentMP3Perm;
+                                    this.filePath = +"/media/" + currentMP3Url + "." + currentMP3Type;
 
                                     break;
                                 case "video":
@@ -174,8 +177,8 @@ class AddressBuilder {
                                         });
                                     }
 
-                                    key = videoPermlink;
-                                    filePath = +"/media/" + video1080p;
+                                    this.key = videoPermlink;
+                                    this.filePath = +"/media/" + video1080p;
 
                                     break;
                                 case "podcast":
@@ -189,21 +192,11 @@ class AddressBuilder {
                             }
 
 
-                            
+
 
                             // console.log($("title").text());
                         }
-
-                        this.downloadLink = await getHost(key).then((host)=>{
-                            this.downloadLink = host + filePath
-                            console.log("host", host)
-                            done();
-                        }).catch(()=>{
-                            this.downloadLink = "dsafssf"
-                            console.error("sfafsafsa")
-                            done();
-                        });
-                        
+                        done();
                     }
                 });
 
@@ -216,9 +209,13 @@ class AddressBuilder {
             }
 
             getDownloadLink() {
-                console.log(this.downloadLink)
-                return this.downloadLink;
-
+                return getHost(key).then((host) => {
+                    this.downloadLink = host + filePath
+                    console.log("host", host)
+                }).catch(() => {
+                    this.downloadLink = "dsafssf"
+                    console.error("sfafsafsa")
+                });
             }
 
             build() {
