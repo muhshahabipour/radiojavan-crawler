@@ -63,7 +63,7 @@ class AddressBuilder {
                 this.url = url;
                 this.type = "unknown";
                 this.downloadLink = "";
-                this.filePath = "";
+                this.filePath = "/";
                 this.key = "";
                 this.downloadLink = "";
             }
@@ -185,6 +185,9 @@ class AddressBuilder {
 
                                     break;
                             }
+
+
+                            console.log("filePath" , this.filePath)
                             // console.log($("title").text());
                         }
                         done();
