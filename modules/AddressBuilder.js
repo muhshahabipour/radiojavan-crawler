@@ -209,8 +209,8 @@ class AddressBuilder {
             }
 
             getDownloadLink() {
-                return getHost(key).then((host) => {
-                    this.downloadLink = host + filePath
+                return getHost(this.key).then((host) => {
+                    this.downloadLink = host + this.filePath
                     console.log("host", host)
                 }).catch(() => {
                     this.downloadLink = "dsafssf"
