@@ -103,7 +103,7 @@ class AddressBuilder {
                             var $ = res.$;
                             const body = res.body;
 
-                            // console.log(body);
+                            console.log(body);
 
 
                             switch (this.type) {
