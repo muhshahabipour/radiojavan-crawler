@@ -186,10 +186,8 @@ class AddressBuilder {
                                     break;
                             }
                             // console.log($("title").text());
-                            console.log("Here 01");
                         }
                         done();
-                        console.log("Here 02");
                     }
                 });
 
@@ -198,19 +196,18 @@ class AddressBuilder {
                     uri: this.url
                 }]);
 
-                console.log("Here 03");
-
-
                 return this;
             }
 
             async getDownloadLink() {
-                await getHost(this.key).then((host) => {
-                    console.log("host", host)
-                    return this.downloadLink = host + this.filePath
+                return await getHost(this.key).then((host) => {
+                    console.log("address", host + this.filePath)
+                    this.downloadLink = host + this.filePath
+                    return this.downloadLink
                 }).catch(() => {
                     console.error("sfafsafsa")
-                    return this.downloadLink = "dsafssf"
+                    this.downloadLink = "dsafssf"
+                    return this.downloadLink
                 });
             }
 
