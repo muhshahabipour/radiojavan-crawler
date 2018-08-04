@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const path = require("path");
-const AddressBuilder = require('./modules/AddressBuilder');
+const AddressBuilder = require('./js/modules/AddressBuilder');
 
 const app = express();
 
