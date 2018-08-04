@@ -203,11 +203,11 @@ class AddressBuilder {
                 return await getHost(this.key).then((host) => {
                     console.log("address", host + this.filePath)
                     this.downloadLink = host + this.filePath
-                    return this.downloadLink
+                    return this.downloadLink + this.filePath
                 }).catch(() => {
                     console.error("sfafsafsa")
                     this.downloadLink = "dsafssf"
-                    return this.downloadLink
+                    return this.downloadLink + this.filePath
                 });
             }
 
