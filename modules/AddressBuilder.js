@@ -30,26 +30,13 @@ const patterns = {
 }
 
 
-getHost = (id) => {
-    return axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
-            params: {
-                id: id || "Sasy-Che-Pesari"
-            },
-            timeout: 35000
-        })
-        .then(function (response) {
-
-            if (has(response, "data") && has(response.data, "host")) {
-                return (response.data.host)
-            } else {
-
-                return ("");
-            }
-        })
-        .catch(function (error) {
-            console.error(error);
-            return ("");
-        });
+getHost = async (id) => {
+    return await axios.get(constant.DOMAIN_REQUEST_ADDRESS, {
+        params: {
+            id: id || "Sasy-Che-Pesari"
+        },
+        timeout: 35000
+    })
 }
 
 class AddressBuilder {
@@ -88,7 +75,7 @@ class AddressBuilder {
                 return this;
             }
 
-            crawler() {
+            async crawler() {
 
                 let filePath = "/";
                 let key = "";
@@ -98,7 +85,7 @@ class AddressBuilder {
                     maxConnections: 10,
                     skipDuplicates: false,
                     // This will be called for each crawled page
-                    callback: function (error, res, done) {
+                    callback: async function (error, res, done) {
                         if (error) {
                             console.log(error);
                             return "not found."
@@ -188,12 +175,19 @@ class AddressBuilder {
 
                                     break;
                             }
+                            this.downloadLink = await getHost(key).then(function (response) {
 
-                            this.downloadLink = getHost(key).then((host) => {
-                                return host + filePath;
-                            }).catch((error) => {
-                                return error;
-                            });
+                                    if (has(response, "data") && has(response.data, "host")) {
+                                        return response.data.host + filePath;
+                                    } else {
+
+                                        return ("");
+                                    }
+                                })
+                                .catch(function (error) {
+                                    console.error(error);
+                                    return ("");
+                                });
 
                             // console.log($("title").text());
                         }
@@ -202,7 +196,7 @@ class AddressBuilder {
                 });
 
                 // Queue just one URL, with default callback
-                c.queue([{
+                await c.queue([{
                     uri: this.url
                 }]);
 

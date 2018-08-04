@@ -4,11 +4,11 @@ const AddressBuilder = require('./modules/AddressBuilder')
 const app = express();
 
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
   // https://host2.rjmusicmedia.com/media/mp3/mp3-256/Sasy-Che-Pesari.mp3
   // var address = RjUtility.getAddress("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam");
 
-  let address = new AddressBuilder.Builder("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam").detectType().crawler().getDownloadLink();
+  let address = await new AddressBuilder.Builder("https://www.radiojavan.com/videos/video/siamak-abbasi-man-divane-nistam").detectType().crawler().getDownloadLink();
 
 
   res.send(address);
