@@ -1,7 +1,8 @@
-const express = require('express')
-const bodyParser = require('body-parser');
-const path = require("path");
-const AddressBuilder = require('./js/modules/AddressBuilder');
+const express         = require('express')
+const bodyParser      = require('body-parser');
+const path            = require("path");
+const axios           = require("axios");
+const AddressBuilder  = require('./js/modules/AddressBuilder');
 
 const app = express();
 
@@ -18,30 +19,48 @@ app.set('view engine', 'html');
 app.set('views', __dirname + "/views");
 
 
+
+
+
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
-})
+});
 
+app.get('/test', function (req, res) {
+  axios.get('https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari')
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+});
 
 app.get('/fetch', function (req, res) {
   res.redirect('/');
-})
+});
 
 app.post('/fetch', async function (req, res) {
   var url = req.body.url;
   await new AddressBuilder.Builder(url).detectType().crawler()
-  .then((response) => {
-    response.getDownloadLink().then((address) => {
+    .then((response) => {
+      response.getDownloadLink().then((address) => {
+        res.render("fetch", {
+          downloadLink: address
+        });
+      })
+    }).catch(() => {
       res.render("fetch", {
-        downloadLink: address
+        downloadLink: "not found!!"
       });
-    })
-  }).catch(() => {
-    res.render("fetch", {
-      downloadLink: "not found!!"
     });
-  });
-})
+});
 
 
 // Bind the app to a specified port
