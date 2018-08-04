@@ -114,20 +114,20 @@ class AddressBuilder {
                                         currentMP3Type = body,
                                         currentMP3Perm = body;
 
-                                    if (currentMP3Url.match(currentMP3UrlPattern)) {
-                                        currentMP3Url.replace(currentMP3UrlPattern, function (match, g1, g2, g3, g4) {
+                                    if (currentMP3Url.match(patterns.file.mp3.currentMP3UrlPattern)) {
+                                        currentMP3Url.replace(patterns.file.mp3currentMP3UrlPattern, function (match, g1, g2, g3, g4) {
                                             currentMP3Url = g4;
                                         });
                                     }
 
-                                    if (currentMP3Type.match(currentMP3TypePattern)) {
-                                        currentMP3Type.replace(currentMP3TypePattern, function (match, g1, g2, g3, g4) {
+                                    if (currentMP3Type.match(patterns.file.mp3.currentMP3TypePattern)) {
+                                        currentMP3Type.replace(patterns.file.mp3.currentMP3TypePattern, function (match, g1, g2, g3, g4) {
                                             currentMP3Type = g4;
                                         });
                                     }
 
-                                    if (currentMP3Perm.match(currentMP3PermPattern)) {
-                                        currentMP3Perm.replace(currentMP3PermPattern, function (match, g1, g2, g3, g4) {
+                                    if (currentMP3Perm.match(patterns.file.mp3.currentMP3PermPattern)) {
+                                        currentMP3Perm.replace(patterns.file.mp3.currentMP3PermPattern, function (match, g1, g2, g3, g4) {
                                             currentMP3Perm = g4;
                                         });
                                     }
@@ -147,32 +147,32 @@ class AddressBuilder {
                                         video4k = body,
                                         videoPermlink = body;
 
-                                    if (video480p.match(video480pPattern)) {
-                                        video480p.replace(video480pPattern, function (match, g1, g2, g3, g4) {
+                                    if (video480p.match(patterns.file.video.video480pPattern)) {
+                                        video480p.replace(patterns.file.video.video480pPattern, function (match, g1, g2, g3, g4) {
                                             video480p = g4;
                                         });
                                     }
 
-                                    if (video720p.match(video720pPattern)) {
-                                        video720p.replace(video480pPattern, function (match, g1, g2, g3, g4) {
+                                    if (video720p.match(patterns.file.video.video720pPattern)) {
+                                        video720p.replace(patterns.file.video.video480pPattern, function (match, g1, g2, g3, g4) {
                                             video720p = g4;
                                         });
                                     }
 
-                                    if (video1080p.match(video1080pPattern)) {
-                                        video1080p.replace(video1080pPattern, function (match, g1, g2, g3, g4) {
+                                    if (video1080p.match(patterns.file.video.video1080pPattern)) {
+                                        video1080p.replace(patterns.file.video.video1080pPattern, function (match, g1, g2, g3, g4) {
                                             video1080p = g4;
                                         });
                                     }
 
-                                    if (video4k.match(video4kPattern)) {
-                                        video4k.replace(video4kPattern, function (match, g1, g2, g3, g4) {
+                                    if (video4k.match(patterns.file.video.video4kPattern)) {
+                                        video4k.replace(patterns.file.video.video4kPattern, function (match, g1, g2, g3, g4) {
                                             video4k = g4;
                                         });
                                     }
 
-                                    if (videoPermlink.match(videoPermlinkPattern)) {
-                                        videoPermlink.replace(videoPermlinkPattern, function (match, g1, g2, g3, g4) {
+                                    if (videoPermlink.match(patterns.file.video.videoPermlinkPattern)) {
+                                        videoPermlink.replace(patterns.file.video.videoPermlinkPattern, function (match, g1, g2, g3, g4) {
                                             videoPermlink = g4;
                                         });
                                     }
