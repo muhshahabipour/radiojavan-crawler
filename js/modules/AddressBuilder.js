@@ -80,7 +80,7 @@ class AddressBuilder {
                 return axios.get(this.url)
                     .then(function (response) {
                         // handle success
-                        console.log(response.data);
+                        // console.log(response.data);
 
                         var body = response.data;
 
@@ -205,7 +205,12 @@ class AddressBuilder {
                         }
 
 
-                        axios.get(url, {
+                        console.group("start");
+                        console.log("url", url);
+                        console.log("key", self.key);
+                        console.groupEnd();
+
+                        return axios.get(url, {
                                 params: {
                                     id: self.key
                                 }
