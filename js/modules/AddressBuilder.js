@@ -187,7 +187,7 @@ class AddressBuilder {
 
                         console.log("filePath", self.filePath)
 
-                        return this;
+                        return self;
 
 
 
@@ -195,11 +195,11 @@ class AddressBuilder {
                     .catch(function (error) {
                         // handle error
                         console.log(error);
-                        return this;
+                        return self;
 
                     })
                     .then(function () {
-                        return this;
+                        return self;
                     });
             }
 

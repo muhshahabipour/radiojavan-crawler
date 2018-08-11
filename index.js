@@ -28,7 +28,9 @@ app.get('/fetch', function (req, res) {
 app.post('/fetch', function (req, res) {
   var url = req.body.url;
   new AddressBuilder.Builder(url).detectType().crawler().then((response) => {
+
     response.getDownloadLink().then((response1) => {
+
       return response1;
     }).catch((response1) => {
       return response1;
