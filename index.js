@@ -29,18 +29,18 @@ app.post('/fetch', function (req, res) {
   var url = req.body.url;
   new AddressBuilder.Builder(url).detectType().crawler().then((response) => {
     res.render("fetch", {
-      downloadLink: response.getDownloadLink().then((response) => {
-        return response;
-      }).catch((response) => {
-        return response;
+      downloadLink: response.getDownloadLink().then((response1) => {
+        return response1;
+      }).catch((response1) => {
+        return response1;
       })
     });
   }).catch((response) => {
     res.render("fetch", {
-      downloadLink: response.getDownloadLink().then((response) => {
-        return response;
-      }).catch((response) => {
-        return response;
+      downloadLink: response.getDownloadLink().then((response1) => {
+        return response1;
+      }).catch((response1) => {
+        return response1;
       })
     });
   });
