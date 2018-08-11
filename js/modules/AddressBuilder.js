@@ -188,19 +188,12 @@ class AddressBuilder {
                         console.log("filePath", self.filePath)
 
                         return self;
-
-
-
                     })
                     .catch(function (error) {
                         // handle error
                         // console.log(error);
                         return self;
-
                     })
-                    .then(function () {
-                        return self;
-                    });
             }
 
             getDownloadLink() {
