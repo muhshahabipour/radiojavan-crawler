@@ -31,17 +31,14 @@ app.post('/fetch', function (req, res) {
 
     response.getDownloadLink().then((response1) => {
       console.log(response1);
-      return response1;
+      res.render("fetch", {
+        downloadLink: response1
+      });
     }).catch((response1) => {
-      return response1;
+      res.render("fetch", {
+        downloadLink: ""
+      });
     })
-
-
-    res.render("fetch", {
-      downloadLink: response.filePath
-    });
-
-
   }).catch((response) => {
     res.render("fetch", {
       downloadLink: ""
