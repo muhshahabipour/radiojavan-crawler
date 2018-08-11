@@ -223,10 +223,10 @@ class AddressBuilder {
                 }
 
 
-                // console.group("start");
+                console.group("start");
                 console.log("url", url);
-                // console.log("key", self.key);
-                // console.groupEnd();
+                console.log("key", self.key);
+                console.groupEnd();
 
 
                 return axios.get(url, {
