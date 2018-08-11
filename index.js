@@ -29,18 +29,23 @@ app.post('/fetch', function (req, res) {
   var url = req.body.url;
   console.log("start URL ===========> ", url)
   new AddressBuilder.Builder(url).detectType().crawler().then((response) => {
-
-    response.getDownloadLink().then((response1) => {
-      console.log("end URL ===========> ", response1)
+    if (response.filePath.length > 1) {
+      response.getDownloadLink().then((response1) => {
+        console.log("end URL ===========> ", response1)
+        res.render("fetch", {
+          downloadLink: response1
+        });
+      }).catch((response1) => {
+        console.log("end URL ===========> ", response1)
+        res.render("fetch", {
+          downloadLink: ""
+        });
+      })
+    } else {
       res.render("fetch", {
-        downloadLink: response1
+        downloadLink: "not found!"
       });
-    }).catch((response1) => {
-      console.log("end URL ===========> ", response1)
-      res.render("fetch", {
-        downloadLink: ""
-      });
-    })
+    }
   }).catch((response) => {
     console.log("end URL ===========> ", response)
     res.render("fetch", {
