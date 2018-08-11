@@ -194,7 +194,7 @@ class AddressBuilder {
                     })
                     .catch(function (error) {
                         // handle error
-                        console.log(error);
+                        // console.log(error);
                         return self;
 
                     })
@@ -248,7 +248,7 @@ class AddressBuilder {
 
                     })
                     .catch(function (error) {
-                        console.error(error);
+                        console.error("error");
                         self.host = "";
                         self.downloadLink = "not found!";
 
