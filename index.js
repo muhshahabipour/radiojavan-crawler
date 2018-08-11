@@ -40,6 +40,8 @@ app.post('/fetch', function (req, res) {
     res.render("fetch", {
       downloadLink: response.filePath
     });
+
+    
   }).catch((response) => {
     res.render("fetch", {
       downloadLink: ""
