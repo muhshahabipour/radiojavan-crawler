@@ -30,7 +30,7 @@ app.post('/fetch', function (req, res) {
   new AddressBuilder.Builder(url).detectType().crawler().then((response) => {
 
     response.getDownloadLink().then((response1) => {
-
+      console.log(response1);
       return response1;
     }).catch((response1) => {
       return response1;
@@ -41,7 +41,7 @@ app.post('/fetch', function (req, res) {
       downloadLink: response.filePath
     });
 
-    
+
   }).catch((response) => {
     res.render("fetch", {
       downloadLink: ""
