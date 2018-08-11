@@ -191,7 +191,7 @@ class AddressBuilder {
                     })
                     .catch(function (error) {
                         // handle error
-                        // console.log(error);
+                        console.log(error);
                         return self;
                     })
             }
@@ -216,10 +216,10 @@ class AddressBuilder {
                 }
 
 
-                console.group("start");
-                console.log("url", url);
-                console.log("key", self.key);
-                console.groupEnd();
+                // console.group("start");
+                // console.log("url", url);
+                // console.log("key", self.key);
+                // console.groupEnd();
 
 
                 return axios.get(url, {
