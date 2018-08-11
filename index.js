@@ -25,20 +25,19 @@ app.get('/fetch', function (req, res) {
   res.redirect('/');
 });
 
-app.post('/fetch', function (req, res) {
+app.post('/fetch', async function (req, res) {
   var url = req.body.url;
   console.log("start URL ===========> ", url)
-  new AddressBuilder.Builder(url).detectType().crawler().then((response) => {
-    if (response.filePath.length > 1) {
-      response.getDownloadLink().then((response1) => {
-        console.log("end URL ===========> ", response1)
+  await new AddressBuilder.Builder(url).detectType().crawler().then((addressBuilder) => {
+    if (addressBuilder.filePath.length > 1) {
+      addressBuilder.getDownloadLink().then((downloadLink) => {
+        console.log("end URL ===========> ", downloadLink)
         res.render("fetch", {
-          downloadLink: response1
+          downloadLink: downloadLink
         });
-      }).catch((response1) => {
-        console.log("end URL ===========> ", response1)
+      }).catch((error) => {
         res.render("fetch", {
-          downloadLink: ""
+          downloadLink: "error"
         });
       })
     } else {
@@ -46,10 +45,9 @@ app.post('/fetch', function (req, res) {
         downloadLink: "not found!"
       });
     }
-  }).catch((response) => {
-    console.log("end URL ===========> ", response)
+  }).catch((error) => {
     res.render("fetch", {
-      downloadLink: ""
+      downloadLink: "not found!"
     });
   });
 
