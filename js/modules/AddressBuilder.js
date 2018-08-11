@@ -187,55 +187,9 @@ class AddressBuilder {
 
                         console.log("filePath", self.filePath)
 
-                        let url = "";
-
-                        switch (self.type) {
-                            case "mp3":
-                                url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
-                                break;
-                            case "video":
-                                url = constant.VIDEO_DOMAIN_REQUEST_ADDRESS;
-                                break;
-                            case "podcast":
-                                url = constant.PODCAST_DOMAIN_REQUEST_ADDRESS;
-                                break;
-                            default:
-                                url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
-                                break;
-                        }
+                        return this;
 
 
-                        console.group("start");
-                        console.log("url", url);
-                        console.log("key", self.key);
-                        console.groupEnd();
-
-                        return axios.get(url, {
-                                params: {
-                                    id: self.key
-                                }
-                            }).then(function (response) {
-                                // console.log("asdsds", response)
-
-                                if (has(response, "data") && has(response.data, "host")) {
-                                    self.host = response.data.host;
-                                    self.downloadLink = self.host + self.filePath
-                                } else {
-                                    self.host = "";
-                                    self.downloadLink = "not found!";
-                                }
-
-                                return self;
-
-                            })
-                            .catch(function (error) {
-                                console.error(error);
-                                self.host = "";
-                                self.downloadLink = "not found!";
-
-                                return self;
-
-                            })
 
                     })
                     .catch(function (error) {
@@ -250,7 +204,57 @@ class AddressBuilder {
             }
 
             getDownloadLink() {
-                return this.downloadLink;
+
+                let url = "";
+
+                switch (self.type) {
+                    case "mp3":
+                        url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
+                        break;
+                    case "video":
+                        url = constant.VIDEO_DOMAIN_REQUEST_ADDRESS;
+                        break;
+                    case "podcast":
+                        url = constant.PODCAST_DOMAIN_REQUEST_ADDRESS;
+                        break;
+                    default:
+                        url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
+                        break;
+                }
+
+
+                console.group("start");
+                console.log("url", url);
+                console.log("key", self.key);
+                console.groupEnd();
+
+
+                return axios.get(url, {
+                        params: {
+                            id: self.key
+                        }
+                    }).then(function (response) {
+                        // console.log("asdsds", response)
+
+                        if (has(response, "data") && has(response.data, "host")) {
+                            self.host = response.data.host;
+                            self.downloadLink = self.host + self.filePath
+                        } else {
+                            self.host = "";
+                            self.downloadLink = "not found!";
+                        }
+
+                        return self.downloadLink;
+
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                        self.host = "";
+                        self.downloadLink = "not found!";
+
+                        return self.downloadLink;
+
+                    })
             }
 
             build() {
