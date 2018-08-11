@@ -218,7 +218,7 @@ class AddressBuilder {
 
                 // console.group("start");
                 // console.log("url", url);
-                // console.log("key", self.key);
+                console.log("key", self.key);
                 // console.groupEnd();
 
 
