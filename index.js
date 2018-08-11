@@ -27,19 +27,22 @@ app.get('/fetch', function (req, res) {
 
 app.post('/fetch', function (req, res) {
   var url = req.body.url;
+  console.log("start URL ===========> ", url)
   new AddressBuilder.Builder(url).detectType().crawler().then((response) => {
 
     response.getDownloadLink().then((response1) => {
-      console.log(response1);
+      console.log("end URL ===========> ", response1)
       res.render("fetch", {
         downloadLink: response1
       });
     }).catch((response1) => {
+      console.log("end URL ===========> ", response1)
       res.render("fetch", {
         downloadLink: ""
       });
     })
   }).catch((response) => {
+    console.log("end URL ===========> ", response)
     res.render("fetch", {
       downloadLink: ""
     });
