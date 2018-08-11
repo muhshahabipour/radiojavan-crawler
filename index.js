@@ -31,11 +31,17 @@ app.post('/fetch', function (req, res) {
     res.render("fetch", {
       downloadLink: response.getDownloadLink().then((response) => {
         return response;
+      }).catch((response) => {
+        return response;
       })
     });
   }).catch((response) => {
     res.render("fetch", {
-      downloadLink: response.getDownloadLink()
+      downloadLink: response.getDownloadLink().then((response) => {
+        return response;
+      }).catch((response) => {
+        return response;
+      })
     });
   });
 
