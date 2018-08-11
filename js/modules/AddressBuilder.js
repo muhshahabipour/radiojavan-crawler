@@ -241,7 +241,7 @@ class AddressBuilder {
                             self.downloadLink = self.host + self.filePath
                         } else {
                             self.host = "";
-                            self.downloadLink = "not found!";
+                            self.downloadLink = "not found 1!";
                         }
 
                         return self.downloadLink;
@@ -250,7 +250,7 @@ class AddressBuilder {
                     .catch(function (error) {
                         console.error("error");
                         self.host = "";
-                        self.downloadLink = "not found!";
+                        self.downloadLink = "not found 2!";
 
                         return self.downloadLink;
 
