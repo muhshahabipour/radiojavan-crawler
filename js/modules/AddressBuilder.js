@@ -76,10 +76,11 @@ class AddressBuilder {
             }
 
             crawler() {
-                axios.get(this.url)
+
+                return axios.get(this.url)
                     .then(function (response) {
                         // handle success
-                        // console.log(response.data);
+                        console.log(response.data);
 
                         var body = response.data;
 
@@ -209,7 +210,7 @@ class AddressBuilder {
                                     id: self.key
                                 }
                             }).then(function (response) {
-                                console.log("asdsds", response)
+                                // console.log("asdsds", response)
 
                                 if (has(response, "data") && has(response.data, "host")) {
                                     self.host = response.data.host;
@@ -218,25 +219,29 @@ class AddressBuilder {
                                     self.host = "";
                                     self.downloadLink = "not found!";
                                 }
+
+                                return self;
+
                             })
                             .catch(function (error) {
                                 console.error(error);
                                 self.host = "";
                                 self.downloadLink = "not found!";
+
+                                return self;
+
                             })
 
                     })
                     .catch(function (error) {
                         // handle error
                         console.log(error);
+                        return this;
+
                     })
                     .then(function () {
-                        // always executed
+                        return this;
                     });
-
-
-
-                return this;
             }
 
             getDownloadLink() {
