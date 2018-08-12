@@ -34,8 +34,11 @@ app.post('/fetch', async function (req, res) {
   var radioJavan = new RadioJavan(url);
 
   var filePath = await radioJavan.getFilePath().then((response) => {
-    console.log("fdsafasf filePath dasdsa", response);
+    console.log("success [filePath] ===>", response);
+    console.warn("success [filePath] ===>", response);
     return filePath;
+  }).catch((response) => {
+    console.warn("error [filePath] ===>", response);
   });
 
 
