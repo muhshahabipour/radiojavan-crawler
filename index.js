@@ -46,7 +46,6 @@ app.post('/fetch', async function (req, res) {
     downloadLink = domain + filePath;
   }
 
-
   res.render("fetch", {
     downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!"
   });
