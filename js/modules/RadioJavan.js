@@ -54,14 +54,10 @@ const detectType = () => {
 
     self.type = type;
 
-    console.log("type1", self.type);
 }
 
 
 const resolveFindFilePath = (x) => {
-    console.log("type2", self.type);
-    console.log("url2", self.url);
-
     return new Promise(resolve => {
         setTimeout(() => {
 
@@ -70,7 +66,7 @@ const resolveFindFilePath = (x) => {
             axios.get(self.url)
                 .then(function (response) {
                     // handle success
-                    console.log(response.data);
+                    // console.log(response.data);
 
                     var body = response.data;
 
@@ -258,12 +254,12 @@ class RadioJavan {
 
     async getFilePath() {
         detectType();
-        var x = await resolveFindFilePath(35000);
+        var x = await resolveFindFilePath(60000);
         return x;
     }
 
-    async getDownloadLink() {
-        var x = await resolveFindDomain(35000);
+    async getDomain() {
+        var x = await resolveFindDomain(60000);
         return x;
     }
 }
