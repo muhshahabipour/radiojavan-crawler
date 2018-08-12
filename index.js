@@ -30,6 +30,7 @@ app.get('/fetch', function (req, res) {
 
 app.post('/fetch', async function (req, res) {
   let downloadLink = "";
+  let base64String = "";
 
   var url = req.body.url;
 
@@ -53,15 +54,14 @@ app.post('/fetch', async function (req, res) {
 
           var image = tag.picture;
           if (image) {
-            var base64String = "";
             for (var i = 0; i < image.data.length; i++) {
                 base64String += String.fromCharCode(image.data[i]);
             }
             var base64 = "data:" + image.format + ";base64," +
                     window.btoa(base64String);
-            document.getElementById('picture').setAttribute('src',base64);
+            // document.getElementById('picture').setAttribute('src',base64);
           } else {
-            document.getElementById('picture').style.display = "none";
+            // document.getElementById('picture').style.display = "none";
           }
 
 
@@ -75,7 +75,8 @@ app.post('/fetch', async function (req, res) {
 
 
   res.render("fetch", {
-    downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!"
+    downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!",
+    src: base64String && base64String.length ? base64String : ""
   });
 
 });
