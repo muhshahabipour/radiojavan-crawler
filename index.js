@@ -28,19 +28,28 @@ app.get('/fetch', function (req, res) {
 });
 
 app.post('/fetch', async function (req, res) {
+  let downloadLink = "";
+
   var url = req.body.url;
   console.log("start URL ===========> ", url)
 
-  var radioJavan = new RadioJavan({url: url});
+  var radioJavan = new RadioJavan({
+    url: url
+  });
 
   var filePath = await radioJavan.getFilePath();
   console.warn("[filePath] ===>", filePath);
-  
+
   var domain = await radioJavan.getDomain();
   console.warn("[domain] ===>", domain);
 
+  if (domain !== "error" && filePath !== "error") {
+    downloadLink = domain + filePath;
+  }
+
+
   res.render("fetch", {
-    downloadLink: "not found!"
+    downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!"
   });
 
 });
