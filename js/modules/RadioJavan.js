@@ -153,6 +153,8 @@ const resolveFindFilePath = () => {
                             });
                         }
 
+
+
                         if (currentPodcastPerm.match(patterns.file.podcast.currentMP3Perm)) {
                             currentPodcastPerm.replace(patterns.file.podcast.currentMp3Perm, function (match, g1, g2, g3, g4) {
                                 currentPodcastPerm = g4;
@@ -160,6 +162,7 @@ const resolveFindFilePath = () => {
                         }
 
                         self.key = currentPodcastPerm;
+                        console.log("Here", self.key)
                         self.filePath = "/media/" + currentPodcastUrl + ".mp3";
                         break;
                     default:
