@@ -33,18 +33,12 @@ app.post('/fetch', async function (req, res) {
 
   var radioJavan = new RadioJavan(url);
 
-  var filePath = await radioJavan.getFilePath().then((response) => {
-    console.log("success [filePath] ===>", response);
-    return filePath;
-  }).catch((response) => {
-    console.warn("error [filePath] ===>", response);
-  });
-
+  var filePath = await radioJavan.getFilePath();
+  console.warn("[filePath] ===>", filePath);
 
   res.render("fetch", {
     downloadLink: "not found!"
   });
-
 
 });
 

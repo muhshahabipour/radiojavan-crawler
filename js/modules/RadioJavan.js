@@ -54,11 +54,14 @@ const detectType = () => {
 
     self.type = type;
 
-    return self.type;
+    console.log("type1", self.type);
 }
 
 
 const resolveFindFilePath = (x) => {
+    console.log("type2", self.type);
+    console.log("url2", self.url);
+
     return new Promise(resolve => {
         setTimeout(() => {
 
@@ -255,7 +258,6 @@ class RadioJavan {
 
     async getFilePath() {
         detectType();
-
         var x = await resolveFindFilePath(35000);
         return x;
     }
