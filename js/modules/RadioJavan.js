@@ -59,8 +59,6 @@ const detectType = () => {
 
 const resolveFindFilePath = () => {
     return new Promise(resolve => {
-        console.log("self.url", self.url)
-
         axios.get(self.url)
             .then(function (response) {
                 // handle success
@@ -168,8 +166,6 @@ const resolveFindFilePath = () => {
                         break;
                 }
 
-
-                console.log("filePath", self.filePath)
                 resolve(self.filePath);
 
             })
@@ -201,33 +197,24 @@ const resolveFindDomain = () => {
         }
 
 
-        // console.group("start");
-        // console.log("url", url);
+        console.log("url", url);
         console.log("key", self.key);
-        // console.groupEnd();
 
-
-        return axios.get(url, {
+        axios.get(url, {
                 params: {
                     id: self.key
                 }
             }).then(function (response) {
-                // console.log("asdsds", response)
-
                 if (has(response, "data") && has(response.data, "host")) {
                     self.host = response.data.host;
-                    self.downloadLink = self.host + self.filePath
+                    resolve(self.host)
                 } else {
                     self.host = "";
-                    self.downloadLink = "not found 1!";
+                    resolve("error")
                 }
-
-                return self.downloadLink;
-
             })
             .catch(function (error) {
-                console.error("error");
-                return "error";
+                resolve("error");
             })
 
     });
