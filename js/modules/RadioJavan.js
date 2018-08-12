@@ -196,10 +196,6 @@ const resolveFindDomain = () => {
                 break;
         }
 
-
-        console.log("url", url);
-        console.log("key", self.key);
-
         axios.get(url, {
                 params: {
                     id: self.key

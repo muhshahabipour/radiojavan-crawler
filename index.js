@@ -31,7 +31,6 @@ app.post('/fetch', async function (req, res) {
   let downloadLink = "";
 
   var url = req.body.url;
-  console.log("start URL ===========> ", url)
 
   var radioJavan = new RadioJavan({
     url: url
