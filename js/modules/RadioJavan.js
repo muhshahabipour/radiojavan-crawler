@@ -65,7 +65,7 @@ const resolveFindFilePath = (x) => {
             axios.get(this.url)
                 .then(function (response) {
                     // handle success
-                    // console.log(response.data);
+                    console.log(response.data);
 
                     var body = response.data;
 
@@ -253,7 +253,7 @@ class RadioJavan {
 
     async getFilePath() {
         detectType();
-        
+
         var x = await resolveFindFilePath(35000);
         return x;
     }
