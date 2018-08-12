@@ -1,7 +1,9 @@
+// const express = require('../../../../.cache/typescript/2.9/node_modules/@types/express')
+// const bodyParser = require('../../../../.cache/typescript/2.9/node_modules/@types/body-parser');
 const express = require('express')
 const bodyParser = require('body-parser');
 const path = require("path");
-const AddressBuilder = require('./js/modules/AddressBuilder');
+const RadioJavan = require('./js/modules/RadioJavan');
 
 const app = express();
 
@@ -28,28 +30,19 @@ app.get('/fetch', function (req, res) {
 app.post('/fetch', async function (req, res) {
   var url = req.body.url;
   console.log("start URL ===========> ", url)
-  await new AddressBuilder.Builder(url).detectType().crawler().then((addressBuilder) => {
-    if (addressBuilder.filePath.length > 1) {
-      addressBuilder.getDownloadLink().then((downloadLink) => {
-        console.log("end URL ===========> ", downloadLink)
-        res.render("fetch", {
-          downloadLink: downloadLink
-        });
-      }).catch((error) => {
-        res.render("fetch", {
-          downloadLink: "error"
-        });
-      })
-    } else {
-      res.render("fetch", {
-        downloadLink: "not found!"
-      });
-    }
-  }).catch((error) => {
-    res.render("fetch", {
-      downloadLink: "not found!"
-    });
+
+  var radioJavan = new RadioJavan(url);
+
+  var filePath = await radioJavan.getFilePath().then((response) => {
+    console.log("fdsafasf filePath dasdsa", response);
+    return filePath;
   });
+
+
+  res.render("fetch", {
+    downloadLink: "not found!"
+  });
+
 
 });
 
