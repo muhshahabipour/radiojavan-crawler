@@ -30,7 +30,7 @@ app.get('/fetch', function (req, res) {
 
 app.post('/fetch', async function (req, res) {
   let downloadLink = "";
-  let base64String = "";
+  let base64 = "";
 
   var url = req.body.url;
 
@@ -57,7 +57,7 @@ app.post('/fetch', async function (req, res) {
             for (var i = 0; i < image.data.length; i++) {
                 base64String += String.fromCharCode(image.data[i]);
             }
-            var base64 = "data:" + image.format + ";base64," +
+            base64 = "data:" + image.format + ";base64," +
                     window.btoa(base64String);
             // document.getElementById('picture').setAttribute('src',base64);
           } else {
@@ -76,7 +76,7 @@ app.post('/fetch', async function (req, res) {
 
   res.render("fetch", {
     downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!",
-    src: base64String && base64String.length ? base64String : ""
+    src: base64 && base64.length ? base64 : ""
   });
 
 });
