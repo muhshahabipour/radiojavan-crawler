@@ -13,7 +13,7 @@
 <body>
 
   <div class="container-fluid">
-    <div id="section-01" class="d-flex justify-content-center  align-items-center row" style="min-height: 50vh; background-image: linear-gradient(to right top, #aa2712, #831a1e, #59141f, #2f1017, #000000);">
+    <div id="section-01" class="d-flex justify-content-center  align-items-center row mb-3" style="min-height: 50vh; background-image: linear-gradient(to right top, #aa2712, #831a1e, #59141f, #2f1017, #000000);">
       <div class="d-inline-flex justify-content-center  align-items-center col col-lg-4">
         <form action="/fetch" method="POST" class="form-inline">
           <div class="input-group">
@@ -25,24 +25,31 @@
         </form>
       </div>
     </div>
-    <div id="section-02" class="d-flex justify-content-center align-items-center row" style="min-height: calc(50vh -16px)">
-      <div class="d-inline-flex justify-content-center  align-items-center col col-lg-4">
-        <div class="row">
-          <div class="col-sm d-flex justify-content-center align-items-center">
-            <%= downloadLink %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm d-flex justify-content-center align-items-center">
-            <a role="button" href="/" class="btn btn-secondary">back</a>
-          </div>
+    
+    <%if (src.length > 0) { %>
+      <div id="section-02" class="d-flex justify-content-center align-items-center row">
+        <div class="d-inline-flex justify-content-center  align-items-center col col-lg-2 mb-3">
+          <img src="<%= src %>" alt="" id="picture" class="rounded img-thumbnail">
         </div>
       </div>
-    </div>
-    <div>
-      <img src="<%= src %>" alt="" id="picture">
-    </div>
+    <% } %>
+    
+    <div id="section-03" class="d-flex justify-content-center align-items-center row" style="min-height: calc(50vh -16px)">
+        <div class="row mb-3">
+                <div class="col col-sm d-flex justify-content-center align-items-center">
+                  <%= downloadLink %>
+                </div>
+              </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col col-sm d-flex justify-content-center align-items-center">
+                <a role="button" href="/" class="btn btn-secondary">back</a>
+              </div>
+        </div>
+        <!-- <div class="d-inline-flex justify-content-center  align-items-center col col-lg-4">
+        </div> -->
+      </div>
+      
   </div>
 
 

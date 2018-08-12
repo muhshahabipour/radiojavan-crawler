@@ -1,6 +1,7 @@
 var has = require("lodash/has");
 var axios = require('axios');
-var Crawler = require("crawler");
+const jsmediatags = require("jsmediatags");
+const btoa = require("btoa");
 var constant = require("../constant");
 
 
@@ -198,7 +199,7 @@ const resolveFindDomain = () => {
         }
 
 
-        console.log(url)
+        // console.log(url)
         // console.log(self.key)
 
         axios.get(url, {
@@ -221,12 +222,53 @@ const resolveFindDomain = () => {
     });
 }
 
+const resolveFindPoster = () => {
+    let base64 = "",
+        base64String = "";
+
+    return new Promise(resolve => {
+
+
+
+
+        new jsmediatags.Reader(self.host + self.filePath)
+            .setTagsToRead(["picture", "title", "artist"])
+            .read({
+                onSuccess: function (response) {
+                    // console.log(response.tags);
+
+                    var image = response.tags.picture;
+                    if (image) {
+                        for (var i = 0; i < image.data.length; i++) {
+                            base64String += String.fromCharCode(image.data[i]);
+                        }
+                        base64 = "data:" + image.format + ";base64," +
+                            btoa(base64String);
+                        resolve(base64)
+                        // document.getElementById('picture').setAttribute('src',base64);
+                    } else {
+                        resolve("")
+                        // document.getElementById('picture').style.display = "none";
+                    }
+
+
+                },
+                onError: function (error) {
+                    console.log(':(', error.type, error.info);
+                    resolve("")
+                }
+            });
+
+    });
+}
+
 class RadioJavan {
     constructor(params) {
         this.url = params.url;
         this.type = "unknown";
         this.downloadLink = "";
         this.filePath = "/";
+        this.host = "";
         this.key = "";
         this.downloadLink = "";
 
@@ -241,6 +283,12 @@ class RadioJavan {
 
     async getDomain() {
         var x = await resolveFindDomain();
+        return x;
+    }
+
+
+    async getFilePoster() {
+        var x = await resolveFindPoster();
         return x;
     }
 }

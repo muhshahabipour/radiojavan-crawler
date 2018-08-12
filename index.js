@@ -2,7 +2,6 @@
 // const bodyParser = require('../../../../.cache/typescript/2.9/node_modules/@types/body-parser');
 const express = require('express')
 const bodyParser = require('body-parser');
-const jsmediatags = require("jsmediatags");
 const path = require("path");
 const RadioJavan = require('./js/modules/RadioJavan');
 
@@ -30,7 +29,6 @@ app.get('/fetch', function (req, res) {
 
 app.post('/fetch', async function (req, res) {
   let downloadLink = "";
-  let base64 = "";
 
   var url = req.body.url;
 
@@ -44,39 +42,24 @@ app.post('/fetch', async function (req, res) {
   var domain = await radioJavan.getDomain();
   console.warn("[domain] ===>", domain);
 
+
+  var poster = "";
+  if (radioJavan.type !== "video") {
+    poster = await radioJavan.getFilePoster();
+    // console.warn("[poster] ===>", poster);
+  }
+
+
   if (domain !== "error" && filePath !== "error") {
     downloadLink = domain + filePath;
 
-    new jsmediatags.Reader(downloadLink)
-      .read({
-        onSuccess: function (tag) {
-          console.log(tag);
-
-          var image = tag.picture;
-          if (image) {
-            for (var i = 0; i < image.data.length; i++) {
-                base64String += String.fromCharCode(image.data[i]);
-            }
-            base64 = "data:" + image.format + ";base64," +
-                    window.btoa(base64String);
-            // document.getElementById('picture').setAttribute('src',base64);
-          } else {
-            // document.getElementById('picture').style.display = "none";
-          }
-
-
-        },
-        onError: function (error) {
-          console.log(':(', error.type, error.info);
-        }
-      });
   }
 
 
 
   res.render("fetch", {
     downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!",
-    src: base64 && base64.length ? base64 : ""
+    src: poster && poster.length ? poster : ""
   });
 
 });
