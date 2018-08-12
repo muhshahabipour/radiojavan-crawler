@@ -62,7 +62,7 @@ const resolveFindFilePath = (x) => {
     return new Promise(resolve => {
         setTimeout(() => {
 
-            axios.get(this.url)
+            axios.get(self.url)
                 .then(function (response) {
                     // handle success
                     console.log(response.data);
