@@ -31,7 +31,7 @@ app.post('/fetch', async function (req, res) {
   var url = req.body.url;
   console.log("start URL ===========> ", url)
 
-  var radioJavan = new RadioJavan(url);
+  var radioJavan = new RadioJavan({url: url});
 
   var filePath = await radioJavan.getFilePath();
   console.warn("[filePath] ===>", filePath);
