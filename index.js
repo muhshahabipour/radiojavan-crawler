@@ -45,18 +45,19 @@ app.post('/fetch', async function (req, res) {
 
   if (domain !== "error" && filePath !== "error") {
     downloadLink = domain + filePath;
+
+    new jsmediatags.Reader(downloadLink)
+      .read({
+        onSuccess: function (tag) {
+          console.log(tag);
+        },
+        onError: function (error) {
+          console.log(':(', error.type, error.info);
+        }
+      });
   }
 
-  new jsmediatags.Reader(downloadLink)
-    .setTagsToRead(["title", "artist"])
-    .read({
-      onSuccess: function (tag) {
-        console.log(tag);
-      },
-      onError: function (error) {
-        console.log(':(', error.type, error.info);
-      }
-    });
+
 
   res.render("fetch", {
     downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!"
