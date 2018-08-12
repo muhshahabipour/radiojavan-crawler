@@ -26,7 +26,7 @@ const patterns = {
         podcast: {
             currentMP3Url: /(RJ(.){1}currentMP3Url(\s=\s'))(.*)(';)/gm,
             currentMP3Type: /(RJ(.){1}currentMP3Type(\s=\s'))(.*)(';)/gm,
-            currentMP3Perm: /(RJ(.){1}currentMP3Perm(\s=\s'))(.*)(';)/gm,
+            currentMP3Perm: /(RJ(.){1}currentMP3Perm(\s=\s'))(.*)(';)/g,
         }
     }
 }
@@ -153,10 +153,8 @@ const resolveFindFilePath = () => {
                             });
                         }
 
-
-
                         if (currentPodcastPerm.match(patterns.file.podcast.currentMP3Perm)) {
-                            currentPodcastPerm.replace(patterns.file.podcast.currentMp3Perm, function (match, g1, g2, g3, g4) {
+                            currentPodcastPerm.replace(patterns.file.podcast.currentMP3Perm, function (match, g1, g2, g3, g4) {
                                 currentPodcastPerm = g4;
                             });
                         }
