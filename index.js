@@ -50,6 +50,21 @@ app.post('/fetch', async function (req, res) {
       .read({
         onSuccess: function (tag) {
           console.log(tag);
+
+          var image = tag.picture;
+          if (image) {
+            var base64String = "";
+            for (var i = 0; i < image.data.length; i++) {
+                base64String += String.fromCharCode(image.data[i]);
+            }
+            var base64 = "data:" + image.format + ";base64," +
+                    window.btoa(base64String);
+            document.getElementById('picture').setAttribute('src',base64);
+          } else {
+            document.getElementById('picture').style.display = "none";
+          }
+
+
         },
         onError: function (error) {
           console.log(':(', error.type, error.info);
