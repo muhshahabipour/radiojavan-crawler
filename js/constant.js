@@ -8,3 +8,4 @@ const define = (name, value) => {
 define("MP3_DOMAIN_REQUEST_ADDRESS",        "http://www.radiojavan.com/mp3s/mp3_host");
 define("VIDEO_DOMAIN_REQUEST_ADDRESS",      "http://www.radiojavan.com/videos/video_host");
 define("PODCAST_DOMAIN_REQUEST_ADDRESS",    "http://www.radiojavan.com/podcasts/podcast_host");
+define("ALBUM_DOMAIN_REQUEST_ADDRESS",      "http://www.radiojavan.com/mp3s/mp3_host");

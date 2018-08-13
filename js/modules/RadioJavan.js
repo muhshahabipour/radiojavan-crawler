@@ -8,10 +8,17 @@ var constant = require("../constant");
 const patterns = {
     type: {
         music: /(.)+(mp3)(.)+/g,
+        album: /(.)+(album)(.)+/g,
         video: /(.)+(video)(.)+/g,
         podcast: /(.)+(podcast)(.)+/g
     },
     file: {
+        album: {
+            currentMP3Url: /(RJ(.){1}currentMP3Url(\s=\s'))(.*)(';)/gm,
+            currentMP3Type: /(RJ(.){1}currentMP3Type(\s=\s'))(.*)(';)/gm,
+            currentMP3Perm: /(RJ(.){1}currentMP3Perm(\s=\s'))(.*)(';)/gm,
+            currentMP3Related: /(RJ(.){1}relatedMP3(\s=\s))(\[.*\])(;)/gm
+        },
         mp3: {
             currentMP3Url: /(RJ(.){1}currentMP3Url(\s=\s'))(.*)(';)/gm,
             currentMP3Type: /(RJ(.){1}currentMP3Type(\s=\s'))(.*)(';)/gm,
@@ -39,6 +46,9 @@ const detectType = () => {
     var type = self.type;
 
     switch (true) {
+        case patterns.type.album.test(self.url):
+            type = "album"
+            break;
         case patterns.type.music.test(self.url):
             type = "music"
             break;
@@ -93,7 +103,53 @@ const resolveFindFilePath = () => {
                         }
 
                         self.key = currentMP3Perm;
-                        self.filePath = "/media/" + currentMP3Url + "." + currentMP3Type;
+                        self.filePaths.push("/media/" + currentMP3Url + "." + currentMP3Type);
+
+                        break;
+                    case "album":
+
+                        // console.log(body)
+
+                        let currentAlbumMP3Url = body,
+                            currentAlbumMP3Type = body,
+                            currentAlbumMP3Perm = body,
+                            currentAlbumMP3Related = body;
+
+                        if (currentAlbumMP3Url.match(patterns.file.album.currentMP3Url)) {
+                            currentAlbumMP3Url.replace(patterns.file.album.currentMP3Url, function (match, g1, g2, g3, g4) {
+                                currentAlbumMP3Url = g4;
+                            });
+                        }
+
+                        if (currentAlbumMP3Type.match(patterns.file.album.currentMP3Type)) {
+                            currentAlbumMP3Type.replace(patterns.file.album.currentMP3Type, function (match, g1, g2, g3, g4) {
+                                currentAlbumMP3Type = g4;
+                            });
+                        }
+
+                        if (currentAlbumMP3Perm.match(patterns.file.album.currentMP3Perm)) {
+                            currentAlbumMP3Perm.replace(patterns.file.album.currentMP3Perm, function (match, g1, g2, g3, g4) {
+                                currentAlbumMP3Perm = g4;
+                            });
+                        }
+
+                        if (currentAlbumMP3Related.match(patterns.file.album.currentMP3Related)) {
+                            currentAlbumMP3Related.replace(patterns.file.album.currentMP3Related, function (match, g1, g2, g3, g4) {
+                                currentAlbumMP3Related = g4;
+                            });
+                        }
+
+
+
+                        self.key = currentAlbumMP3Perm;
+                        if (currentAlbumMP3Related.length) {
+                            const files = JSON.parse(currentAlbumMP3Related);
+                            const basePathLink = currentAlbumMP3Url.replace(currentAlbumMP3Perm, "");
+                            files.forEach(function (element) {
+                                self.filePaths.push("/media/" + basePathLink + element.mp3 + ".mp3");
+                            });
+
+                        }
 
                         break;
                     case "video":
@@ -134,7 +190,10 @@ const resolveFindFilePath = () => {
                         }
 
                         self.key = videoPermlink;
-                        self.filePath = video1080p;
+                        self.filePaths.push(video1080p);
+                        // self.filePaths.push(video4k);
+                        self.filePaths.push(video720p);
+                        self.filePaths.push(video480p);
 
                         break;
                     case "podcast":
@@ -162,13 +221,13 @@ const resolveFindFilePath = () => {
 
                         self.key = currentPodcastPerm;
                         console.log("Here", self.key)
-                        self.filePath = "/media/" + currentPodcastUrl + ".mp3";
+                        self.filePaths.push("/media/" + currentPodcastUrl + ".mp3");
                         break;
                     default:
                         break;
                 }
 
-                resolve(self.filePath);
+                resolve(self.filePaths);
 
             })
             .catch(function (error) {
@@ -192,6 +251,9 @@ const resolveFindDomain = () => {
                 break;
             case "podcast":
                 url = constant.PODCAST_DOMAIN_REQUEST_ADDRESS;
+                break;
+            case "album":
+                url = constant.ALBUM_DOMAIN_REQUEST_ADDRESS;
                 break;
             default:
                 url = constant.MP3_DOMAIN_REQUEST_ADDRESS;
@@ -228,10 +290,7 @@ const resolveFindPoster = () => {
 
     return new Promise(resolve => {
 
-
-
-
-        new jsmediatags.Reader(self.host + self.filePath)
+        new jsmediatags.Reader(self.host + self.filePaths[0])
             .setTagsToRead(["picture", "title", "artist"])
             .read({
                 onSuccess: function (response) {
@@ -266,11 +325,9 @@ class RadioJavan {
     constructor(params) {
         this.url = params.url;
         this.type = "unknown";
-        this.downloadLink = "";
-        this.filePath = "/";
+        this.filePaths = [];
         this.host = "";
         this.key = "";
-        this.downloadLink = "";
 
         self = this;
     }

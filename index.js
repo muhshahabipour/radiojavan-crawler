@@ -28,7 +28,7 @@ app.get('/fetch', function (req, res) {
 });
 
 app.post('/fetch', async function (req, res) {
-  let downloadLink = "";
+  let downloadLinks = [];
 
   var url = req.body.url;
 
@@ -36,8 +36,8 @@ app.post('/fetch', async function (req, res) {
     url: url
   });
 
-  var filePath = await radioJavan.getFilePath();
-  console.warn("[filePath] ===>", filePath);
+  var filePaths = await radioJavan.getFilePath();
+  console.warn("[filePaths] ===>", filePaths);
 
   var domain = await radioJavan.getDomain();
   console.warn("[domain] ===>", domain);
@@ -50,15 +50,19 @@ app.post('/fetch', async function (req, res) {
   }
 
 
-  if (domain !== "error" && filePath !== "error") {
-    downloadLink = domain + filePath;
+  if (domain !== "error" && filePaths !== "error") {
+    if (filePaths && filePaths.length > 0) {
+      filePaths.forEach(function (filePath) {
+        downloadLinks.push(domain + filePath);
+      });
+    }
 
   }
 
 
 
   res.render("fetch", {
-    downloadLink: downloadLink && downloadLink.length ? downloadLink : "not found!",
+    downloadLinks: downloadLinks && downloadLinks.length ? downloadLinks : "not found!",
     src: poster && poster.length ? poster : ""
   });
 

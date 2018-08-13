@@ -25,31 +25,37 @@
         </form>
       </div>
     </div>
-    
+
     <%if (src.length > 0) { %>
       <div id="section-02" class="d-flex justify-content-center align-items-center row">
         <div class="d-inline-flex justify-content-center  align-items-center col col-lg-2 mb-3">
           <img src="<%= src %>" alt="" id="picture" class="rounded img-thumbnail">
         </div>
       </div>
-    <% } %>
-    
-    <div id="section-03" class="d-flex justify-content-center align-items-center row" style="min-height: calc(80vh -16px)">
-        <div class="row mb-3">
-                <div class="col col-sm d-flex justify-content-center align-items-center">
-                  <%= downloadLink %>
-                </div>
-              </div>
+      <% } %>
+
+        <div id="section-03" class="d-flex justify-content-center align-items-center row" style="min-height: calc(80vh -16px)">
+          <div class="row mb-3">
+            <div class="col col-sm d-flex justify-content-center align-items-center">
+              <ul>
+                <% for(var i=0; i<downloadLinks.length; i++) { %>
+                  <li>
+                    <%= i+1 %> - <%= downloadLinks[i] %>
+                  </li>
+                  <% } %>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="row mb-3">
-            <div class="col col-sm d-flex justify-content-center align-items-center">
-                <a role="button" href="/" class="btn btn-secondary">back</a>
-              </div>
+          <div class="col col-sm d-flex justify-content-center align-items-center">
+            <a role="button" href="/" class="btn btn-secondary">back</a>
+          </div>
         </div>
         <!-- <div class="d-inline-flex justify-content-center  align-items-center col col-lg-4">
         </div> -->
-      </div>
-      
+  </div>
+
   </div>
 
 
