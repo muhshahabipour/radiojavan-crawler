@@ -6,7 +6,9 @@ const RadioJavan = require('./js/modules/RadioJavan');
 const app = express();
 
 app.use('/node_modules', express.static('node_modules'))
-app.use('/public/styles', express.static('styles'))
+app.use('/static/styles', express.static('public/styles'))
+app.use('/static/js', express.static('public/js'))
+app.use('/static/images', express.static('public/images'))
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
