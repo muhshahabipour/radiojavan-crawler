@@ -1,5 +1,3 @@
-// const express = require('../../../../.cache/typescript/2.9/node_modules/@types/express')
-// const bodyParser = require('../../../../.cache/typescript/2.9/node_modules/@types/body-parser');
 const express = require('express')
 const bodyParser = require('body-parser');
 const path = require("path");
@@ -8,6 +6,7 @@ const RadioJavan = require('./js/modules/RadioJavan');
 const app = express();
 
 app.use('/node_modules', express.static('node_modules'))
+app.use('/public/styles', express.static('styles'))
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
@@ -17,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.engine('html', require('ejs').renderFile);
 
 app.set('view engine', 'html');
-app.set('views', __dirname + "/views");
+app.set('views', __dirname + "/public/views");
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
@@ -25,6 +24,10 @@ app.get('/', function (req, res) {
 
 app.get('/fetch', function (req, res) {
   res.redirect('/');
+});
+
+app.get('/test', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.1.html'));
 });
 
 app.post('/fetch', async function (req, res) {

@@ -1,0 +1,10 @@
+@import "compass/css3";
+
+body {
+    @include box-sizing(border-box);
+    // direction: rtl;
+    text-align: right;
+    background-color: #1b1a18;
+    color: #fbffff;
+    min-height: 100vh;
+}

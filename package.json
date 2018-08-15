@@ -14,14 +14,25 @@
   },
   "devDependencies": {
     "axios": "^0.18.0",
+    "bootstrap-v4-rtl": "^4.1.1-0",
+    "browser-sync": "^2.24.6",
     "crawler": "^1.1.4",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "fs": "0.0.1-security",
-    "lodash": "^4.17.10"
+    "gulp": "^3.9.1",
+    "gulp-compass": "^2.1.0",
+    "gulp-jshint": "^2.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.2.1",
+    "jshint": "^2.9.6",
+    "lodash": "^4.17.10",
+    "node-sass": "^4.9.3",
+    "nodemon": "^1.18.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "npm install && node ./public/index.js",
+    "watch": "gulp"
   },
   "repository": {
     "type": "git",
