@@ -14,18 +14,34 @@
 
 <body>
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-auto mr-auto">Site</div>
-      <div class="col-auto">Application</div>
+  <div class="">
+
+    <div class="d-flex justify-content-between app-site-wrapper">
+      <div class="d-flex">
+        <div class="site-wrapper mr-4">Site</div>
+        <div class="social-wrapper">Social</div>
+      </div>
+      <div class="">Application</div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      شسیسشی
+
+    <div class="d-flex menu-wrapper">
+      Menu and Logo
+    </div>
+
+    <div class="d-flex flex-column justify-content-center align-items-center finder-wrapper">
+      <div class="">Finders</div>
+      <form action="/fetch" method="POST" class="col col-sm-10 col-md-8 col-lg-6 col-xl-4">
+        <div class="input-group">
+          <input type="url" class="form-control form-control-lg border border-dark" name="url" placeholder="url" aria-label="url" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-dark btn-lg" type="submit" id="button-addon2">find</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 
+  </div>
   <script src="/node_modules/jquery/dist/jquery.slim.min.js"></script>
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/node_modules/scrollpos-styler/scrollPosStyler.js"></script>

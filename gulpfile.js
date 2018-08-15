@@ -7,11 +7,17 @@ var gulp = require('gulp'),
 
 gulp.task('compass-task', function () {
     return gulp.src('public/scss/*.scss').pipe(compass({
-                    css: 'public/styles',
-                    sass: 'public/scss',
-                    style: 'compact',
-                    comments: false
-                }));
+            config_file: './config.rb',
+            css: 'public/styles',
+            sass: 'public/scss',
+            // style: 'compact',
+            // comments: false
+        }))
+        .pipe(gulp.dest('public/styles'))
+        // .pipe(browserSync.reload({
+        //     stream: true
+        // }))
+        
 });
 
 var jshintFunc = function (event) {
@@ -22,26 +28,26 @@ var jshintFunc = function (event) {
 
 gulp.task('watch', function () {
     // compile compass to css then minify all css
-    gulp.watch('./scss/*.scss', ['compass-task']);
+    gulp.watch('./public/scss/*.scss', ['compass-task']);
 
     // jshint
     gulp.watch(['**/*.js', '!gulpfile.js'], jshintFunc);
 
 
     // reload using Livereload plugin
-    //gulp.watch(['**/*.css', '**/*.ejs', '**/*.js'], function (event) {
-    //    gulp.src(event.path).pipe(livereload());
-    //});
+    gulp.watch(['**/*.css', '**/*.ejs', '**/*.js'], function (event) {
+       gulp.src(event.path).pipe(livereload());
+    });
 
 
     livereload.listen();
 });
 
 gulp.task('browser-sync', ['nodemon-task'], function () {
-    browserSync.init(null, {
-        proxy: "http://localhost:3000",
+    browserSync.init({
+        proxy: "http://localhost:3005",
         files: ["public/**/*.*"],
-        browser: "google chrome",
+        browser: "firefox",
         port: 7000
     });
 });
