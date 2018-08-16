@@ -37,13 +37,21 @@
         <div id="section-03" class="d-flex justify-content-center align-items-center row" style="min-height: calc(80vh -16px)">
           <div class="row mb-3">
             <div class="col col-sm d-flex justify-content-center align-items-center">
-              <ul>
-                <% for(var i=0; i<downloadLinks.length; i++) { %>
-                  <li>
-                    <%= i+1 %> - <%= downloadLinks[i] %>
-                  </li>
-                  <% } %>
-              </ul>
+              <%if (status) { %>
+                <ul>
+                  <% for(var i=0; i<downloadLinks.length; i++) { %>
+                    <li>
+                      <%= i+1 %> -
+                        <%= downloadLinks[i] %>
+                    </li>
+                    <% } %>
+                </ul>
+
+                <% }else { %>
+
+                  <%= downloadLinks %>
+
+                    <% } %>
             </div>
           </div>
         </div>

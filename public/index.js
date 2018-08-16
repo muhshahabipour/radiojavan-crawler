@@ -68,6 +68,7 @@ app.post('/fetch', async function (req, res) {
 
   res.render("fetch", {
     downloadLinks: downloadLinks && downloadLinks.length ? downloadLinks : "not found!",
+    status: downloadLinks && downloadLinks.length ? 1 : 0,
     src: poster && poster.length ? poster : ""
   });
 
