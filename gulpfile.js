@@ -31,21 +31,21 @@ gulp.task('watch', function () {
     gulp.watch('./public/scss/*.scss', ['compass-task']);
 
     // jshint
-    gulp.watch(['**/*.js', '!gulpfile.js'], jshintFunc);
+    // gulp.watch(['**/*.js', '!gulpfile.js'], jshintFunc);
 
 
     // reload using Livereload plugin
-    gulp.watch(['**/*.css', '**/*.ejs', '**/*.js'], function (event) {
-       gulp.src(event.path).pipe(livereload());
-    });
+    // gulp.watch(['**/*.css', '**/*.ejs', '**/*.js'], function (event) {
+    //    gulp.src(event.path).pipe(livereload());
+    // });
 
 
-    livereload.listen();
+    // livereload.listen();
 });
 
 gulp.task('browser-sync', ['nodemon-task'], function () {
     browserSync.init({
-        proxy: "http://localhost:3005",
+        proxy: "http://localhost:3000",
         files: ["public/**/*.*"],
         browser: "firefox",
         port: 7000
