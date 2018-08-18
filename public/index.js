@@ -34,11 +34,7 @@ app.get('/notfound', function (req, res) {
 
 app.post('/find', async function (req, res) {
   let downloadLinks = [];
-  const downloadItem = {
-    link: "",
-    title: "",
-    cover: ""
-  }
+
   var url = req.body.url;
 
   var radioJavan = new RadioJavan({
@@ -63,9 +59,12 @@ app.post('/find', async function (req, res) {
   if (domain !== "error" && filePaths !== "error") {
     if (filePaths && filePaths.length > 0) {
       filePaths.forEach(function (filePath) {
-        let item = downloadItem;
-        item.link = domain + filePath
-        downloadLinks.push(item);
+        let downloadItem = {
+          link: domain + filePath,
+          title: "",
+          cover: ""
+        }
+        downloadLinks.push(downloadItem);
       });
     }
 
