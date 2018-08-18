@@ -12,6 +12,7 @@
     "js-crawler": "^0.3.21",
     "jsmediatags": "^3.8.1",
     "material-design-icons": "^3.0.1",
+    "owl.carousel": "^2.3.4",
     "scrollpos-styler": "^0.7.0"
   },
   "devDependencies": {

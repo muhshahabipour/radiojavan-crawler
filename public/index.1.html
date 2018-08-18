@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" href="/node_modules/bootstrap-v4-rtl/dist/css/bootstrap-rtl.min.css"> -->
   <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="/static/styles/style.css">
 
@@ -43,11 +42,11 @@
 
     <div class="d-flex menu-wrapper">
       <nav class="navbar navbar-expand-md navbar-dark">
-        
-          <a class="navbar-brand mr-0" href="#">
-              <img src="/static/images/nav_logo@2x.png" width="200" height="33">
-          </a>  
-        
+
+        <a class="navbar-brand mr-0" href="#">
+          <img src="/static/images/nav_logo@2x.png" width="200" height="33">
+        </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
           aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -90,32 +89,47 @@
           </ul>
         </div>
 
-        
+
       </nav>
     </div>
 
-    <div class="d-flex flex-column justify-content-center align-items-center finder-wrapper">
-      <form action="/fetch" method="POST" class="col-sm-10 col-md-8 col-lg-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
-        <div class="input-group">
-          <input type="url" class="form-control form-control-lg border border-dark" name="url" placeholder="url" aria-label="url" aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-dark btn-lg" type="submit" id="button-addon2">find</button>
+    <div class="finder-wrapper">
+      <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div style="background-image: url('/static/images/carousel/02.jpg')" class="carousel-image-item"></div>
+          </div>
+          <div class="carousel-item">
+            <div style="background-image: url('/static/images/carousel/01.jpg')" class="carousel-image-item"></div>
+          </div>
+          <div class="carousel-item">
+            <div style="background-image: url('/static/images/carousel/03.jpg')" class="carousel-image-item"></div>
           </div>
         </div>
-      </form>
+      </div>
+
+      <div id="search-form" class="d-flex flex-column justify-content-center align-items-center">
+        <form action="/fetch" method="POST" class="col-sm-10 col-md-8 col-lg-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
+          <div class="d-flex form-wrapper w-100">
+            <input type="url" class="form-control form-control-lg border-0 mr-2" name="url" placeholder="URL" aria-label="URL" aria-describedby="button-addon2">
+            <span class="fas fa-search form-control-feedback" aria-hidden="true"></span>
+            <!-- <div class="input-group-append"> -->
+            <button class="btn btn-outline-light btn-lg border-0" type="submit" id="button-addon2">find</button>
+            <!-- </div> -->
+          </div>
+        </form>
+      </div>
     </div>
 
     <div class="d-flex flex-column founded-wrapper">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md mb-3">
+          <div class="col-xs-12 col-sm mb-3">
             One of three columns
           </div>
-          <div class="col-xs-12 col-sm-6 col-md mb-3">
-            <div class="file-poster"></div>
-          </div>
-          <div class="col-xs-12 col-md mb-3">
-            <button type="button" class="btn btn-secondary btn-block">Download</button>
+          <div class="col-xs-12 col-sm mb-3">
+            Two of three columns
+            <!-- <div class="file-poster"></div> -->
           </div>
         </div>
       </div>
@@ -132,7 +146,13 @@
   <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/node_modules/scrollpos-styler/scrollPosStyler.js"></script>
   <script>
-    ScrollPosStyler.init()
+    ScrollPosStyler.init();
+
+    $('.carousel').carousel({
+      interval: 5000
+    })
+
+    $(document).ready(function () {});
   </script>
 </body>
 
