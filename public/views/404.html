@@ -14,9 +14,10 @@
 
 <body class="d-flex flex-column align-items-stretch">
 
-  <main>
+  <main class="d-flex flex-column main-layout">
 
     <div class="d-flex justify-content-between app-site-wrapper">
+      <div class="rjplus-banner">RadioJavan+</div>
       <div class="d-flex">
         <!-- <div class="site-wrapper mr-4">Site</div> -->
         <div class="social-wrapper d-flex justify-content-start d-flex align-items-center">
@@ -37,7 +38,6 @@
           </div>
         </div>
       </div>
-      <div class="rjplus-banner">RadioJavan+</div>
     </div>
 
     <div class="d-flex menu-wrapper">
@@ -109,34 +109,26 @@
       </div>
 
       <div id="search-form" class="d-flex flex-column justify-content-center align-items-center">
-        <form action="/fetch" method="POST" class="col-sm-10 col-md-8 col-lg-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
+        <form action="/find" method="POST" class="col-sm-10 col-md-8 col-lg-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
           <div class="d-flex form-wrapper w-100">
-            <input type="url" class="form-control form-control-lg border-0 mr-2" name="url" placeholder="URL" aria-label="URL" aria-describedby="button-addon2">
+            <input type="url" class="form-control form-control-lg border-0 mr-2" name="url" placeholder="URL" aria-label="URL" aria-describedby="button-find">
             <span class="fas fa-search form-control-feedback" aria-hidden="true"></span>
             <!-- <div class="input-group-append"> -->
-            <button class="btn btn-outline-light btn-lg border-0" type="submit" id="button-addon2">find</button>
+            <button class="btn btn-outline-light btn-lg border-0" type="submit" id="button-find">find</button>
             <!-- </div> -->
           </div>
         </form>
       </div>
     </div>
 
-    <div class="d-flex flex-column founded-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm mb-3">
-            One of three columns
-          </div>
-          <div class="col-xs-12 col-sm mb-3">
-            Two of three columns
-            <!-- <div class="file-poster"></div> -->
-          </div>
-        </div>
-      </div>
+    <div class="d-flex flex-column align-items-center justify-content-center founded-wrapper">
+      <h1>404</h1>
     </div>
+
+
   </main>
 
-  <footer class="d-flex footer-wrapper">
+  <footer class="d-flex footer-layout">
     <div class="container">
       <span class="text-muted">Footer</span>
     </div>

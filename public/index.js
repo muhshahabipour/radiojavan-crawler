@@ -24,17 +24,21 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.get('/fetch', function (req, res) {
+app.get('/find', function (req, res) {
   res.redirect('/');
 });
 
-app.get('/test', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.1.html'));
+app.get('/notfound', function (req, res) {
+  res.sendFile(path.join(__dirname + '/views/notFound.html'));
 });
 
-app.post('/fetch', async function (req, res) {
+app.post('/find', async function (req, res) {
   let downloadLinks = [];
-
+  const downloadItem = {
+    link: "",
+    title: "",
+    cover: ""
+  }
   var url = req.body.url;
 
   var radioJavan = new RadioJavan({
@@ -48,32 +52,41 @@ app.post('/fetch', async function (req, res) {
   console.warn("[domain] ===>", domain);
 
 
-  var poster = "";
-  if (radioJavan.type !== "video") {
-    poster = await radioJavan.getFilePoster();
-    // console.warn("[poster] ===>", poster);
-  }
+
+
+  // var poster = "";
+  // if (radioJavan.type !== "video") {
+  //   poster = await radioJavan.getFilePoster();
+  // }
 
 
   if (domain !== "error" && filePaths !== "error") {
     if (filePaths && filePaths.length > 0) {
       filePaths.forEach(function (filePath) {
-        downloadLinks.push(domain + filePath);
+        let item = downloadItem;
+        item.link = domain + filePath
+        downloadLinks.push(item);
       });
     }
 
   }
 
 
-
-  res.render("fetch", {
-    downloadLinks: downloadLinks && downloadLinks.length ? downloadLinks : "not found!",
-    status: downloadLinks && downloadLinks.length ? 1 : 0,
-    src: poster && poster.length ? poster : ""
-  });
-
+  if (downloadLinks && downloadLinks.length) {
+    res.render("founded", {
+      downloadLinks: downloadLinks && downloadLinks.length ? downloadLinks : "not found!",
+      status: 1
+    });
+  } else {
+    res.render("notFound", {
+      status: 0,
+    });
+  }
 });
 
+app.get('*', function (req, res) {
+  res.render('404', {});
+});
 
 // Bind the app to a specified port
 var port = process.env.PORT || 3000;

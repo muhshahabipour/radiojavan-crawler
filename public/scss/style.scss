@@ -10,11 +10,19 @@ body {
     @include box-sizing(border-box);
 }
 
+
+
+// Layout -- Main
+.main-layout{
+    @include flex(1);
+}
+
 .app-site-wrapper {
     padding: 8px 16px;
     background-color: #1b1a18;
     .social-wrapper {
         .social-icon {
+            cursor: pointer;
             width: 28px;
             @include display-flex(flex);
             @include align-items(center);
@@ -23,17 +31,6 @@ body {
     }
 }
 
-.rjplus-banner {
-    background-color: rgba(170, 39, 18, 0.4);
-    @include display-flex(flex);
-    @include align-items(center);
-    margin: -8px 0;
-    padding: 8px 16px;
-    cursor: pointer;
-    &:hover {
-        background-color: #aa2712;
-    }
-}
 
 .menu-wrapper {
     background: rgba(33, 33, 33, 0.8);
@@ -114,26 +111,70 @@ $finder-heigth: calc(200px + 32px + 32px);
 }
 
 .founded-wrapper {
-    // display: none !important;
     background: rgba(33, 33, 33, 0.8);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 16px;
-    max-height: 400px;
+    padding: 16px 0;
+    @include flex(1);
     overflow: hidden;
-    .file-poster {
-        width: 100%;
-        height: 0;
-        padding-bottom: 100%;
-        background: #000;
-        border: 1px solid #363636;
-        background-color: rgba(33, 33, 33, 0.45);
-        @include box-shadow(0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11));
+}
+
+
+// Layout -- Footer
+.footer-layout {
+    padding: 16px;
+    min-height: 60px;
+}
+
+
+// Component
+.rjplus-banner {
+    background-color: rgba(170, 39, 18, 0.4);
+    @include display-flex(flex);
+    @include align-items(center);
+    margin: -8px 0;
+    padding: 8px 16px;
+    cursor: pointer;
+    &:hover {
+        background-color: #aa2712;
     }
 }
 
-.footer-wrapper {
-    padding: 16px;
-    min-height: 60px;
-    @include flex(1);
+.download-item-wrapper {
+    border: 1px solid #363636;
+    background-color: rgba(33, 33, 33, 0.45);
+    @include box-shadow(0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11));
+    padding: 8px;
+    @include border-radius(8px, 8px);
+    .detail-wrapper {
+        min-width: 0; // margin-right + image width + border 
+        max-width: calc(100% - 8px - 50px - 1px);
+        span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+    .cover-wrapper {
+        margin-right: 8px;
+        .tumb-cover {
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border: 1px solid #363636;
+            background-color: rgba(33, 33, 33, 0.45);
+            @include box-shadow(0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11));
+            background-image: url('/static/images/music-solid.svg');
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            @include border-radius(8px,
+            8px);
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: inherit;
+            }
+        }
+    }
 }

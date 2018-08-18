@@ -11,11 +11,17 @@ body {
   box-sizing: border-box;
 }
 
+.main-layout {
+  -webkit-flex: 1;
+  flex: 1;
+}
+
 .app-site-wrapper {
   padding: 8px 16px;
   background-color: #1b1a18;
 }
 .app-site-wrapper .social-wrapper .social-icon {
+  cursor: pointer;
   width: 28px;
   display: -webkit-flex;
   display: flex;
@@ -23,20 +29,6 @@ body {
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
-}
-
-.rjplus-banner {
-  background-color: rgba(170, 39, 18, 0.4);
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  margin: -8px 0;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-.rjplus-banner:hover {
-  background-color: #aa2712;
 }
 
 .menu-wrapper {
@@ -137,25 +129,73 @@ body {
   background: rgba(33, 33, 33, 0.8);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 16px;
-  max-height: 400px;
+  padding: 16px 0;
+  -webkit-flex: 1;
+  flex: 1;
   overflow: hidden;
 }
-.founded-wrapper .file-poster {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
+
+.footer-layout {
+  padding: 16px;
+  min-height: 60px;
+}
+
+.rjplus-banner {
+  background-color: rgba(170, 39, 18, 0.4);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: -8px 0;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.rjplus-banner:hover {
+  background-color: #aa2712;
+}
+
+.download-item-wrapper {
+  border: 1px solid #363636;
+  background-color: rgba(33, 33, 33, 0.45);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11);
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11);
+  padding: 8px;
+  -moz-border-radius: 8px / 8px;
+  -webkit-border-radius: 8px 8px;
+  border-radius: 8px / 8px;
+}
+.download-item-wrapper .detail-wrapper {
+  min-width: 0;
+  max-width: calc(100% - 8px - 50px - 1px);
+}
+.download-item-wrapper .detail-wrapper span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.download-item-wrapper .cover-wrapper {
+  margin-right: 8px;
+}
+.download-item-wrapper .cover-wrapper .tumb-cover {
+  width: 50px;
+  height: 50px;
   background: #000;
   border: 1px solid #363636;
   background-color: rgba(33, 33, 33, 0.45);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11);
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11);
+  background-image: url("/static/images/music-solid.svg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -moz-border-radius: 8px / 8px;
+  -webkit-border-radius: 8px 8px;
+  border-radius: 8px / 8px;
+  overflow: hidden;
 }
-
-.footer-wrapper {
-  padding: 16px;
-  min-height: 60px;
-  -webkit-flex: 1;
-  flex: 1;
+.download-item-wrapper .cover-wrapper .tumb-cover img {
+  width: 100%;
+  height: inherit;
 }
