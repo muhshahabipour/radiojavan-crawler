@@ -55,20 +55,18 @@ app.post('/find', async function (req, res) {
   //   poster = await radioJavan.getFilePoster();
   // }
 
-
   if (domain !== "error" && filePaths !== "error") {
     if (filePaths && filePaths.length > 0) {
-      filePaths.forEach(async function (filePath) {
-        const fileDetail  = await radioJavan.getFileDetail(domain + filePath);
+      for (const filePath of filePaths) {
+        const fileDetail = await radioJavan.getFileDetail(domain + filePath);
         let downloadItem = {
           link: domain + filePath,
           title: fileDetail.title || "",
-          cover:  fileDetail.cover || ""
+          cover: fileDetail.cover || ""
         }
         downloadLinks.push(downloadItem);
-      });
+      };
     }
-
   }
 
 

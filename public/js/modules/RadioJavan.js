@@ -287,11 +287,11 @@ const resolveFileDetail = (address) => {
 
     return new Promise(resolve => {
 
-        new jsmediatags.Reader(self.host + self.filePaths[0])
+        new jsmediatags.Reader(address)
             .setTagsToRead(["picture", "title", "artist"])
             .read({
                 onSuccess: function (response) {
-                    // console.log(response.tags);
+                    console.log(response.tags.artist + " - " + response.tags.title);
 
                     var image = response.tags.picture;
                     if (image) {
@@ -300,7 +300,7 @@ const resolveFileDetail = (address) => {
                         }
                         base64 = "data:" + image.format + ";base64," +
                             btoa(base64String);
-                        resolve({title: response.tags.title,  cover: base64})
+                        resolve({title: response.tags.artist + " - " + response.tags.title,  cover: base64})
                     } else {
                         resolve({title: "", cover: ""})
                     }
@@ -309,7 +309,7 @@ const resolveFileDetail = (address) => {
                 },
                 onError: function (error) {
                     console.log(':(', error.type, error.info);
-                    resolve("")
+                    resolve({title: "", cover: ""})
                 }
             });
 
@@ -340,7 +340,6 @@ class RadioJavan {
         var x = await resolveFindDomain();
         return x;
     }
-
 
     async getFileDetail(address) {
         var x = await resolveFileDetail(address);
