@@ -58,11 +58,12 @@ app.post('/find', async function (req, res) {
 
   if (domain !== "error" && filePaths !== "error") {
     if (filePaths && filePaths.length > 0) {
-      filePaths.forEach(function (filePath) {
+      filePaths.forEach(async function (filePath) {
+        const fileDetail  = await radioJavan.getFileDetail(domain + filePath);
         let downloadItem = {
           link: domain + filePath,
-          title: "",
-          cover: ""
+          title: fileDetail.title || "",
+          cover:  fileDetail.cover || ""
         }
         downloadLinks.push(downloadItem);
       });

@@ -67,7 +67,6 @@ const detectType = () => {
 
 }
 
-
 const resolveFindFilePath = () => {
     return new Promise(resolve => {
         axios.get(self.url)
@@ -236,8 +235,6 @@ const resolveFindFilePath = () => {
     });
 }
 
-
-
 const resolveFindDomain = () => {
     return new Promise(resolve => {
         let url = "";
@@ -284,7 +281,7 @@ const resolveFindDomain = () => {
     });
 }
 
-const resolveFindPoster = () => {
+const resolveFileDetail = (address) => {
     let base64 = "",
         base64String = "";
 
@@ -303,11 +300,9 @@ const resolveFindPoster = () => {
                         }
                         base64 = "data:" + image.format + ";base64," +
                             btoa(base64String);
-                        resolve(base64)
-                        // document.getElementById('picture').setAttribute('src',base64);
+                        resolve({title: response.tags.title,  cover: base64})
                     } else {
-                        resolve("")
-                        // document.getElementById('picture').style.display = "none";
+                        resolve({title: "", cover: ""})
                     }
 
 
@@ -320,6 +315,9 @@ const resolveFindPoster = () => {
 
     });
 }
+
+
+
 
 class RadioJavan {
     constructor(params) {
@@ -344,8 +342,8 @@ class RadioJavan {
     }
 
 
-    async getFilePoster() {
-        var x = await resolveFindPoster();
+    async getFileDetail(address) {
+        var x = await resolveFileDetail(address);
         return x;
     }
 }
