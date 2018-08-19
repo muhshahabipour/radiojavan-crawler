@@ -300,16 +300,31 @@ const resolveFileDetail = (address) => {
                         }
                         base64 = "data:" + image.format + ";base64," +
                             btoa(base64String);
-                        resolve({title: response.tags.artist + " - " + response.tags.title, album: response.tags.album,  cover: base64, type: self.type})
+                        resolve({
+                            title: response.tags.artist + " - " + response.tags.title,
+                            album: response.tags.album,
+                            cover: base64,
+                            type: self.type
+                        })
                     } else {
-                        resolve({title: "", album: "", cover: "",type:""})
+                        resolve({
+                            title: "",
+                            album: "",
+                            cover: "",
+                            type: ""
+                        })
                     }
 
 
                 },
                 onError: function (error) {
                     console.log(':(', error.type, error.info);
-                    resolve({title: "", album: "", cover: "", type:""})
+                    resolve({
+                        title: "",
+                        album: "",
+                        cover: "",
+                        type: ""
+                    })
                 }
             });
 
@@ -323,31 +338,16 @@ const resolveVideoDetail = (address) => {
     return new Promise(resolve => {
 
         new jsmediatags.Reader(address)
-            .setTagsToRead(["picture", "title", "artist", "album"])
             .read({
-                onSuccess: function (response) {
-                    console.log(response.tags.artist + " - " + response.tags.title);
-
-                    var image = response.tags.picture;
-                    if (image) {
-                        for (var i = 0; i < image.data.length; i++) {
-                            base64String += String.fromCharCode(image.data[i]);
-                        }
-                        base64 = "data:" + image.format + ";base64," +
-                            btoa(base64String);
-                        resolve({title: response.tags.artist + " - " + response.tags.title, album: response.tags.album,  cover: base64, type: self.type})
-                    } else {
-                        resolve({title: "", album: "", cover: "",type:""})
-                    }
-
-
+                onSuccess: (tag) => {
+                    console.log('Success!', tag);
+                    resolve(tag);
                 },
-                onError: function (error) {
-                    console.log(':(', error.type, error.info);
-                    resolve({title: "", album: "", cover: "", type:""})
+                onError: (error) => {
+                    console.log('Error', error);
+                    reject(error);
                 }
             });
-
     });
 }
 
