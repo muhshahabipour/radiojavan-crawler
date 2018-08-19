@@ -62,6 +62,7 @@ app.post('/find', async function (req, res) {
         let downloadItem = {
           link: domain + filePath,
           title: fileDetail.title || "",
+          type: fileDetail.type || "",
           cover: fileDetail.cover || ""
         }
         downloadLinks.push(downloadItem);

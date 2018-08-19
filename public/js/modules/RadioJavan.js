@@ -288,7 +288,7 @@ const resolveFileDetail = (address) => {
     return new Promise(resolve => {
 
         new jsmediatags.Reader(address)
-            .setTagsToRead(["picture", "title", "artist"])
+            .setTagsToRead(["picture", "title", "artist", "album"])
             .read({
                 onSuccess: function (response) {
                     console.log(response.tags.artist + " - " + response.tags.title);
@@ -300,16 +300,16 @@ const resolveFileDetail = (address) => {
                         }
                         base64 = "data:" + image.format + ";base64," +
                             btoa(base64String);
-                        resolve({title: response.tags.artist + " - " + response.tags.title,  cover: base64})
+                        resolve({title: response.tags.artist + " - " + response.tags.title, album: response.tags.album,  cover: base64, type: self.type})
                     } else {
-                        resolve({title: "", cover: ""})
+                        resolve({title: "", album: "", cover: "",type:""})
                     }
 
 
                 },
                 onError: function (error) {
                     console.log(':(', error.type, error.info);
-                    resolve({title: "", cover: ""})
+                    resolve({title: "", album: "", cover: "", type:""})
                 }
             });
 
