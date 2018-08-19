@@ -102,7 +102,7 @@ const resolveFindFilePath = () => {
                         }
 
                         self.key = currentMP3Perm;
-                        self.filePaths.push("/media/" + currentMP3Url + "." + currentMP3Type);
+                        self.filePaths.push({link: "/media/" + currentMP3Url + "." + currentMP3Type, title: ""});
 
                         break;
                     case "album":
@@ -145,7 +145,7 @@ const resolveFindFilePath = () => {
                             const files = JSON.parse(currentAlbumMP3Related);
                             const basePathLink = currentAlbumMP3Url.replace(currentAlbumMP3Perm, "");
                             files.forEach(function (element) {
-                                self.filePaths.push("/media/" + basePathLink + element.mp3 + ".mp3");
+                                self.filePaths.push({link: "/media/" + basePathLink + element.mp3 + ".mp3", title: ""});
                             });
 
                         }
@@ -188,11 +188,13 @@ const resolveFindFilePath = () => {
                             });
                         }
 
+                        console.log(body)
+
                         self.key = videoPermlink;
-                        self.filePaths.push(video1080p);
-                        // self.filePaths.push(video4k);
-                        self.filePaths.push(video720p);
-                        self.filePaths.push(video480p);
+                        self.filePaths.push({link: video1080p, title: ""});
+                        // self.filePaths.push({link: video4k, title: ""});
+                        self.filePaths.push({link: video720p, title: ""});
+                        self.filePaths.push({link: video480p, title: ""});
 
                         break;
                     case "podcast":
@@ -220,7 +222,7 @@ const resolveFindFilePath = () => {
 
                         self.key = currentPodcastPerm;
                         console.log("Here", self.key)
-                        self.filePaths.push("/media/" + currentPodcastUrl + ".mp3");
+                        self.filePaths.push({link: "/media/" + currentPodcastUrl + ".mp3", title: ""});
                         break;
                     default:
                         break;

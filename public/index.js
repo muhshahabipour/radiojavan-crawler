@@ -48,33 +48,23 @@ app.post('/find', async function (req, res) {
   var domain = await radioJavan.getDomain();
   console.warn("[domain] ===>", domain);
 
-
-
-
-  // var poster = "";
-  // if (radioJavan.type !== "video") {
-  //   poster = await radioJavan.getFilePoster();
-  // }
-
   if (domain !== "error" && filePaths !== "error") {
     if (filePaths && filePaths.length > 0) {
       for (const filePath of filePaths) {
 
-        let downloadItem = {link: domain + filePath}
+        let downloadItem = {link: domain + filePath.link}
 
         if (radioJavan.type !== "video") {
-          const fileDetail = await radioJavan.getFileDetail(domain + filePath);
+          const fileDetail = await radioJavan.getFileDetail(domain + filePath.link);
           downloadItem = _defaults(downloadItem, {
-            title: fileDetail.title || "",
+            title: fileDetail.title || filePath.title || "",
             type: fileDetail.type || "",
             cover: fileDetail.cover || ""
           })
         } else {
-          // const videoDetail = await radioJavan.getVideoDetail(domain + filePath);
           downloadItem = _defaults(downloadItem, {
-            // title: videoDetail.title || "",
+            title: filePath.title || "",
             type: "video",
-            // cover: videoDetail.cover || ""
           })
         }
         downloadLinks.push(downloadItem);
