@@ -60,12 +60,7 @@ app.post('/find', async function (req, res) {
     if (filePaths && filePaths.length > 0) {
       for (const filePath of filePaths) {
 
-        let downloadItem = {
-          link: domain + filePath,
-          title: "",
-          type: "",
-          cover: ""
-        }
+        let downloadItem = {link: domain + filePath}
 
         if (radioJavan.type !== "video") {
           const fileDetail = await radioJavan.getFileDetail(domain + filePath);
