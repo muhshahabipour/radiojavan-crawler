@@ -30,7 +30,7 @@ const patterns = {
             video720p: /(RJ(.){1}video720p(\s=\s'))(.*)(';)/gm,
             video480p: /(RJ(.){1}video480p(\s=\s'))(.*)(';)/gm,
             videoPermlink: /(RJ(.){1}videoPermlink(\s=\s'))(.*)(';)/gm,
-            title: /<(title|TITLE)[^>]*>\s*(.*?)\s*<\/(title|TITLE)>/gm
+            title: /<(title|TITLE)[^>]*>\s*(.*?)\sVideo\s-\sRadioJavan.com\s*<\/(title|TITLE)>/gm
         },
         podcast: {
             currentMP3Url: /(RJ(.){1}currentMP3Url(\s=\s'))(.*)(';)/gm,
@@ -161,8 +161,8 @@ const resolveFindFilePath = () => {
                             videoPermlink = body;
 
                         if (videoTitle.match(patterns.file.video.title)) {
-                            videoTitle.replace(patterns.file.video.title, function (match, g1, g2, g3, g4) {
-                                videoTitle = g4;
+                            videoTitle.replace(patterns.file.video.title, function (match, g1, g2, g3) {
+                                videoTitle = g2;
                             });
                         }
 
@@ -195,6 +195,8 @@ const resolveFindFilePath = () => {
                                 videoPermlink = g4;
                             });
                         }
+
+                        console.log(videoTitle);
 
                         self.key = videoPermlink;
                         self.filePaths.push({link: video1080p, title: videoTitle, quality: "1080p"});
