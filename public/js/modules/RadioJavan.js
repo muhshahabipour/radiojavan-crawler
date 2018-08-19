@@ -302,7 +302,7 @@ const resolveFileDetail = (address) => {
             .read({
                 onSuccess: function (response) {
                     console.log(response.tags.artist + " - " + response.tags.title);
-                    console.log(response.tags.album)
+                    
                     var image = response.tags.picture;
                     if (image) {
                         for (var i = 0; i < image.data.length; i++) {
