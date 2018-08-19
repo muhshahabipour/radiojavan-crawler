@@ -64,6 +64,7 @@ app.post('/find', async function (req, res) {
         } else {
           downloadItem = _defaults(downloadItem, {
             title: filePath.title || "",
+            quality: filePath.quality || "",
             type: "video",
           })
         }
