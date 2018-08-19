@@ -59,7 +59,8 @@ app.post('/find', async function (req, res) {
           downloadItem = _defaults(downloadItem, {
             title: fileDetail.title || filePath.title || "",
             type: fileDetail.type || "",
-            cover: fileDetail.cover || ""
+            cover: fileDetail.cover || "",
+            album: fileDetail.album || ""
           })
         } else {
           downloadItem = _defaults(downloadItem, {
