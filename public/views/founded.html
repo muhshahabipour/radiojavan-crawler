@@ -135,9 +135,11 @@
                 <span>
                   <%= downloadLinks[i].title %>
                 </span>
+                <%if (downloadLinks[i].type == "album"){ %>
                 <b>
                   <%= downloadLinks[i].album %>
                 </b>
+                <%}%>
                 <%if (downloadLinks[i].quality){ %>
                   <div>
                     <span class="badge badge-light"><%= downloadLinks[i].quality %></span>  
