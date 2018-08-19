@@ -70,7 +70,7 @@ app.post('/find', async function (req, res) {
             cover: fileDetail.cover || ""
           })
         } else {
-          const videoDetail = await radioJavan.getVideoDetail(domain + filePath);
+          // const videoDetail = await radioJavan.getVideoDetail(domain + filePath);
           downloadItem = _defaults(downloadItem, {
             // title: videoDetail.title || "",
             type: "video",
