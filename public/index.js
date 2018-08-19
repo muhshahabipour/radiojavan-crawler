@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const path = require("path");
+const _defaults = require("lodash/defaults");
 const RadioJavan = require('./js/modules/RadioJavan');
 
 const app = express();
@@ -58,15 +59,31 @@ app.post('/find', async function (req, res) {
   if (domain !== "error" && filePaths !== "error") {
     if (filePaths && filePaths.length > 0) {
       for (const filePath of filePaths) {
-        const fileDetail = await radioJavan.getFileDetail(domain + filePath);
+
         let downloadItem = {
           link: domain + filePath,
-          title: fileDetail.title || "",
-          type: fileDetail.type || "",
-          cover: fileDetail.cover || ""
+          title: "",
+          type: "",
+          cover: ""
+        }
+
+        if (radioJavan.type !== "video") {
+          const fileDetail = await radioJavan.getFileDetail(domain + filePath);
+          downloadItem = _defaults(downloadItem, {
+            title: fileDetail.title || "",
+            type: fileDetail.type || "",
+            cover: fileDetail.cover || ""
+          })
+        } else {
+          const videoDetail = await radioJavan.getVideoDetail(domain + filePath);
+          downloadItem = _defaults(downloadItem, {
+            // title: videoDetail.title || "",
+            type: "video",
+            // cover: videoDetail.cover || ""
+          })
         }
         downloadLinks.push(downloadItem);
-      };
+      }
     }
   }
 

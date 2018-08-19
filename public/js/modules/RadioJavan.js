@@ -316,6 +316,41 @@ const resolveFileDetail = (address) => {
     });
 }
 
+const resolveVideoDetail = (address) => {
+    let base64 = "",
+        base64String = "";
+
+    return new Promise(resolve => {
+
+        new jsmediatags.Reader(address)
+            .setTagsToRead(["picture", "title", "artist", "album"])
+            .read({
+                onSuccess: function (response) {
+                    console.log(response.tags.artist + " - " + response.tags.title);
+
+                    var image = response.tags.picture;
+                    if (image) {
+                        for (var i = 0; i < image.data.length; i++) {
+                            base64String += String.fromCharCode(image.data[i]);
+                        }
+                        base64 = "data:" + image.format + ";base64," +
+                            btoa(base64String);
+                        resolve({title: response.tags.artist + " - " + response.tags.title, album: response.tags.album,  cover: base64, type: self.type})
+                    } else {
+                        resolve({title: "", album: "", cover: "",type:""})
+                    }
+
+
+                },
+                onError: function (error) {
+                    console.log(':(', error.type, error.info);
+                    resolve({title: "", album: "", cover: "", type:""})
+                }
+            });
+
+    });
+}
+
 
 
 
@@ -343,6 +378,11 @@ class RadioJavan {
 
     async getFileDetail(address) {
         var x = await resolveFileDetail(address);
+        return x;
+    }
+
+    async getVideoDetail(address) {
+        var x = await resolveVideoDetail(address);
         return x;
     }
 }
