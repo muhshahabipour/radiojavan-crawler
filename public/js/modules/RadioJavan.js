@@ -341,11 +341,11 @@ const resolveVideoDetail = (address) => {
             .read({
                 onSuccess: (tag) => {
                     console.log('Success!', tag);
-                    resolve(tag);
+                    resolve({});
                 },
                 onError: (error) => {
-                    console.log('Error', error);
-                    reject(error);
+                    console.log('Error');
+                    reject({});
                 }
             });
     });
