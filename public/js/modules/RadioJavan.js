@@ -153,16 +153,16 @@ const resolveFindFilePath = () => {
 
                         break;
                     case "video":
-                        let title = body,
+                        let videoTitle = body,
                             video480p = body,
                             video720p = body,
                             video1080p = body,
                             video4k = body,
                             videoPermlink = body;
 
-                        if (title.match(patterns.file.video.title)) {
-                            title.replace(patterns.file.video.title, function (match, g1, g2, g3, g4) {
-                                title = g4;
+                        if (videoTitle.match(patterns.file.video.title)) {
+                            videoTitle.replace(patterns.file.video.title, function (match, g1, g2, g3, g4) {
+                                videoTitle = g4;
                             });
                         }
 
@@ -197,10 +197,10 @@ const resolveFindFilePath = () => {
                         }
 
                         self.key = videoPermlink;
-                        self.filePaths.push({link: video1080p, title: title, quality: "1080p"});
+                        self.filePaths.push({link: video1080p, title: videoTitle, quality: "1080p"});
                         // self.filePaths.push({link: video4k, title: title, quality: "4K"});
-                        self.filePaths.push({link: video720p, title: title, quality: "720p"});
-                        self.filePaths.push({link: video480p, title: title, quality: "480p"});
+                        self.filePaths.push({link: video720p, title: videoTitle, quality: "720p"});
+                        self.filePaths.push({link: video480p, title: videoTitle, quality: "480p"});
 
                         break;
                     case "podcast":
