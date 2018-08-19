@@ -29,7 +29,8 @@ const patterns = {
             video1080p: /(RJ(.){1}video1080p(\s=\s'))(.*)(';)/gm,
             video720p: /(RJ(.){1}video720p(\s=\s'))(.*)(';)/gm,
             video480p: /(RJ(.){1}video480p(\s=\s'))(.*)(';)/gm,
-            videoPermlink: /(RJ(.){1}videoPermlink(\s=\s'))(.*)(';)/gm
+            videoPermlink: /(RJ(.){1}videoPermlink(\s=\s'))(.*)(';)/gm,
+            title: /<(title|TITLE)[^>]*>\s*(.*?)\s*<\/(title|TITLE)>/gm
         },
         podcast: {
             currentMP3Url: /(RJ(.){1}currentMP3Url(\s=\s'))(.*)(';)/gm,
@@ -152,11 +153,18 @@ const resolveFindFilePath = () => {
 
                         break;
                     case "video":
-                        let video480p = body,
+                        let title = body,
+                            video480p = body,
                             video720p = body,
                             video1080p = body,
                             video4k = body,
                             videoPermlink = body;
+
+                        if (title.match(patterns.file.video.title)) {
+                            title.replace(patterns.file.video.title, function (match, g1, g2, g3, g4) {
+                                title = g4;
+                            });
+                        }
 
                         if (video480p.match(patterns.file.video.video480p)) {
                             video480p.replace(patterns.file.video.video480p, function (match, g1, g2, g3, g4) {
@@ -188,13 +196,11 @@ const resolveFindFilePath = () => {
                             });
                         }
 
-                        console.log(body)
-
                         self.key = videoPermlink;
-                        self.filePaths.push({link: video1080p, title: ""});
-                        // self.filePaths.push({link: video4k, title: ""});
-                        self.filePaths.push({link: video720p, title: ""});
-                        self.filePaths.push({link: video480p, title: ""});
+                        self.filePaths.push({link: video1080p, title: title, quality: "1080p"});
+                        // self.filePaths.push({link: video4k, title: title, quality: "4K"});
+                        self.filePaths.push({link: video720p, title: title, quality: "720p"});
+                        self.filePaths.push({link: video480p, title: title, quality: "480p"});
 
                         break;
                     case "podcast":
