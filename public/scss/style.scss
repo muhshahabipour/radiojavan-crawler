@@ -178,3 +178,15 @@ $finder-heigth: calc(200px + 32px + 32px);
         }
     }
 }
+
+
+
+.logo-download-app{
+    height: 40px;
+    &.logo-google{
+        height: 60px;
+    }
+    &.logo-cafebazzar{
+        margin: 10px 0;
+    }
+}

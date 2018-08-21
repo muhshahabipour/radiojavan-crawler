@@ -199,3 +199,13 @@ body {
   width: 100%;
   height: inherit;
 }
+
+.logo-download-app {
+  height: 40px;
+}
+.logo-download-app.logo-google {
+  height: 60px;
+}
+.logo-download-app.logo-cafebazzar {
+  margin: 10px 0;
+}
