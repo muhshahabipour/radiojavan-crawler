@@ -12,9 +12,24 @@
   <title>RJ Plus - RJ Downloader</title>
 
   <script type="text/javascript">
-    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+    window.heap = window.heap || [], heap.load = function (e, t) {
+      window.heap.appid = e, window.heap.config = t = t || {};
+      var r = t.forceSSL || "https:" === document.location.protocol,
+        a = document.createElement("script");
+      a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") + "//cdn.heapanalytics.com/js/heap-" +
+        e + ".js";
+      var n = document.getElementsByTagName("script")[0];
+      n.parentNode.insertBefore(a, n);
+      for (var o = function (e) {
+          return function () {
+            heap.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+          }
+        }, p = ["addEventProperties", "addUserProperties", "clearEventProperties", "identify", "resetIdentity",
+          "removeEventProperty", "setEventProperties", "track", "unsetEventProperty"
+        ], c = 0; c < p.length; c++) heap[p[c]] = o(p[c])
+    };
     heap.load("2643380433");
-</script>
+  </script>
 </head>
 
 <body class="d-flex flex-column align-items-stretch">
@@ -48,8 +63,8 @@
     <div class="d-flex menu-wrapper">
       <nav class="navbar navbar-expand-md navbar-dark">
 
-        <a class="navbar-brand mr-0" href="#">
-          <img src="/static/images/nav_logo@2x.png" width="200" height="33">
+        <a class="navbar-brand navbar-brand-rjplus mr-0" href="#">
+          <img src="/static/images/nav_logo@2x.png" width="200" height="33"> +
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -116,44 +131,54 @@
       <div id="search-form" class="d-flex flex-column justify-content-center align-items-center">
         <form action="/find" method="POST" class="col-sm-10 col-md-8 col-lg-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
           <div class="d-flex form-wrapper w-100">
-            <input type="url" class="form-control form-control-lg border-0 mr-2" name="url" placeholder="URL: https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari" aria-label="URL" aria-describedby="button-find">
+            <input type="url" class="form-control form-control-lg border-0 mr-2" name="url" placeholder="URL"
+              aria-label="URL" aria-describedby="button-find">
             <span class="fas fa-search form-control-feedback" aria-hidden="true"></span>
             <!-- <div class="input-group-append"> -->
             <button class="btn btn-outline-light btn-lg border-0" type="submit" id="button-find">find</button>
             <!-- </div> -->
           </div>
         </form>
+      </div>
 
-        <!-- <div>
+      <div class="d-flex justify-content-center examples-wrapper">
+        <div class="d-flex flex-column">
           <label>Example URL: </label>
           <ul>
             <li>
-              <label for="">MP3</label>
+              <b for="">MP3: </b>
               <ul>
-                <li>https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari</li>
+                <li>
+                  <span>https://www.radiojavan.com/mp3s/mp3/Sasy-Che-Pesari</span>
+                </li>
               </ul>
             </li>
             <li>
-              <label for="">Album</label>
+              <b for="">Album: </b>
               <ul>
-                <li>https://www.radiojavan.com/mp3s/album/EpiCure-Yek</li>
+                <li>
+                  <span>https://www.radiojavan.com/mp3s/album/EpiCure-Yek</span>
+                </li>
               </ul>
             </li>
             <li>
-              <label for="">Video</label>
+              <b for="">Video: </b>
               <ul>
-                <li>https://www.radiojavan.com/videos/video/sogand-chikaret-kardam</li>
+                <li>
+                  <span>https://www.radiojavan.com/videos/video/sogand-chikaret-kardam</span>
+                </li>
               </ul>
             </li>
             <li>
-              <label for="">Podcast</label>
+              <b for="">Podcast: </b>
               <ul>
-                <li>https://www.radiojavan.com/podcasts/podcast/Playout-7</li>
+                <li>
+                  <span>https://www.radiojavan.com/podcasts/podcast/Playout-7</span>
+                </li>
               </ul>
             </li>
           </ul>
-        </div> -->
-
+        </div>
       </div>
     </div>
 
@@ -162,7 +187,7 @@
   <footer class="d-flex footer-layout">
     <div class="container d-flex">
       <!-- <img src="/static/images/get-cafebazaar-en.png" class="logo-download-app logo-cafebazzar" alt="get from cafebazaar"> -->
-      <img src="/static/images/get-google-play.png" class="logo-download-app logo-google" alt="get from google">
+      <!-- <img src="/static/images/get-google-play.png" class="logo-download-app logo-google" alt="get from google"> -->
     </div>
   </footer>
 

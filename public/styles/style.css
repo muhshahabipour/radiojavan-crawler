@@ -209,3 +209,15 @@ body {
 .logo-download-app.logo-cafebazzar {
   margin: 10px 0;
 }
+
+.examples-wrapper {
+  padding: 16px 0;
+  background-color: #6666;
+}
+.examples-wrapper ul {
+  list-style: none;
+}
+
+.navbar-brand-rjplus {
+  color: #a2a2a2 !important;
+}
