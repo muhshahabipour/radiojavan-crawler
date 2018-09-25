@@ -34,7 +34,7 @@
     "nodemon": "^1.18.3"
   },
   "scripts": {
-    "start": "npm install && node ./public/index.js",
+    "start": "node ./public/index.js",
     "watch": "gulp"
   },
   "repository": {
