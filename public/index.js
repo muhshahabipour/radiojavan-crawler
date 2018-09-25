@@ -6,6 +6,7 @@ const RadioJavan = require('./js/modules/RadioJavan');
 
 const app = express();
 
+
 app.use('/node_modules', express.static('node_modules'))
 app.use('/static/styles', express.static('public/styles'))
 app.use('/static/js', express.static('public/js'))
