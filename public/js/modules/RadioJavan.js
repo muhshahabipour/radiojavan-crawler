@@ -44,28 +44,20 @@ const patterns = {
 let self = null;
 
 const detectType = () => {
-    var type = self.type;
 
-    switch (true) {
-        case patterns.type.album.test(self.url):
-            type = "album"
-            break;
-        case patterns.type.music.test(self.url):
-            type = "music"
-            break;
-        case patterns.type.video.test(self.url):
-            type = "video"
-            break;
-        case patterns.type.podcast.test(self.url):
-            type = "podcast"
-            break;
-        default:
-            type = "unknown"
-            break;
-    }
 
-    self.type = type;
+    if ((self.url).match((patterns.type.album)) != null)
+        self.type = "album"
+    else if ((self.url).match((patterns.type.music)) != null)
+        self.type = "music"
+    else if ((self.url).match((patterns.type.video)) != null)
+        self.type = "video"
+    else if ((self.url).match((patterns.type.podcast)) != null)
+        self.type = "podcast"
+    else
+        self.type = "unknown"
 
+    return self.type;
 }
 
 const resolveFindFilePath = () => {
