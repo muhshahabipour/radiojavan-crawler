@@ -1,61 +1,59 @@
 var gulp = require('gulp'),
     compass = require('gulp-compass'),
-    jshint = require('gulp-jshint'),
-    livereload = require('gulp-livereload'),
-    browserSync = require('browser-sync'),
+    bSync = require('browser-sync'),
     nodemon = require('gulp-nodemon');
 
-gulp.task('compass-task', function () {
-    return gulp.src('public/scss/*.scss').pipe(compass({
-            config_file: './config.rb',
-            css: 'public/styles',
-            sass: 'public/scss',
-            // style: 'compact',
-            // comments: false
-        }))
-        .pipe(gulp.dest('public/styles'))
-        // .pipe(browserSync.reload({
-        //     stream: true
-        // }))
-        
-});
 
-var jshintFunc = function (event) {
-    gulp.src(event.path)
-        .pipe(jshint('.jshintrc'))
-        .pipe(jshint.reporter('default'));
-};
+
+gulp.task('compass', function (done) {
+    gulp.src(['public/scss/**/*.scss', 'public/scss/**/*.sass'])
+        .pipe(compass({
+            config_file: './public/config.rb',
+            css: 'public/styles',
+            sass: 'public/scss'
+        }).on('error', function (err) {
+            console.error('Error!', err.message);
+        }))
+        .pipe(gulp.dest('public/styles'));
+
+    done();
+});
 
 gulp.task('watch', function () {
-    // compile compass to css then minify all css
-    gulp.watch('./public/scss/*.scss', ['compass-task']);
-
-    // jshint
-    // gulp.watch(['**/*.js', '!gulpfile.js'], jshintFunc);
-
-
-    // reload using Livereload plugin
-    // gulp.watch(['**/*.css', '**/*.ejs', '**/*.js'], function (event) {
-    //    gulp.src(event.path).pipe(livereload());
-    // });
-
-
-    // livereload.listen();
+    gulp.watch('public/scss/**/*.scss', gulp.series('compass'));
+    // gulp.watch('public/*.html', browserSync.reload);
+    // gulp.watch('public/*.htm', browserSync.reload);
+    // gulp.watch('public/js/**/*.js', browserSync.reload);
 });
 
-gulp.task('browser-sync', ['nodemon-task'], function () {
-    browserSync.init({
+
+gulp.task('nodemon', function (cb) {
+	
+	var started = false;
+	
+	return nodemon({
+		script: './public/index.js'
+	}).on('start', function () {
+		// to avoid nodemon being started multiple times
+		// thanks @matthisk
+		if (!started) {
+			cb();
+			started = true; 
+		} 
+	});
+});
+
+
+gulp.task('browser-sync', gulp.series('nodemon' , function (done) {
+    bSync.init({
         proxy: "http://localhost:3000",
-        files: ["public/**/*.*"],
+        files: ["public/**/*.*", "node_modules/**/*.*"],
         browser: "firefox",
         port: 7000
     });
-});
+    done();
+}));
 
-gulp.task('nodemon-task', function () {
-    return nodemon({
-        script: './public'
-    });
-});
 
-gulp.task('default', ['watch', 'browser-sync']);
+
+gulp.task('default', gulp.series('compass', 'browser-sync', 'watch'));

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
+
+    <title><%= title %></title>
+
+    <% /* Place any styles in the page in this section. */ %>
+    <%- style %>
+
+
+    <script type="text/javascript">
+        window.heap = window.heap || [], heap.load = function (e, t) {
+            window.heap.appid = e, window.heap.config = t = t || {};
+            var r = t.forceSSL || "https:" === document.location.protocol,
+                a = document.createElement("script");
+            a.type = "text/javascript", a.async = !0, a.src = (r ? "https:" : "http:") +
+                "//cdn.heapanalytics.com/js/heap-" +
+                e + ".js";
+            var n = document.getElementsByTagName("script")[0];
+            n.parentNode.insertBefore(a, n);
+            for (var o = function (e) {
+                    return function () {
+                        heap.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                    }
+                }, p = ["addEventProperties", "addUserProperties", "clearEventProperties", "identify",
+                    "resetIdentity",
+                    "removeEventProperty", "setEventProperties", "track", "unsetEventProperty"
+                ], c = 0; c < p.length; c++) heap[p[c]] = o(p[c])
+        };
+        heap.load("2643380433");
+    </script>
+</head>
+
+<body class="d-flex flex-column align-items-stretch">
+
+
+
+    <main class="d-flex flex-column flex-fill">
+
+        <div class="d-flex justify-content-end p-4">
+            <div class="col-12 col-md-10 col-lg-6 col-xl-5">
+                <div class="d-flex justify-content-around">
+                    <a href="/" class="text-white font-weight-bolder">Home</a>
+                    <a href="https://radiojavan.com" class="text-white font-weight-bolder">Radiojavan</a>
+                    <a href="https://github.com" class="text-white font-weight-bolder">Github</a>
+                </div>
+            </div>
+        </div>
+
+
+        
+
+        <%- body %>
+
+
+    </main>
+
+    <footer>
+        <%- defineContent('footer') %>
+
+        <div class="col-12">
+            <div class="row justify-content-end">
+                <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+                    <div class="row">
+                        <span class="text-white font-weight-bolder ml-2 ml-md-0">Last Crawler</span>
+                        <div class="last-crawler-wrapper">
+                            <div class="p-4 last-crawler-list">
+
+                                <div class="last-crawler-item">
+                                    <div class="media">
+                                        <img src="/static/images/gentelman.jpg"
+                                            class="last-crawler-image align-self-center rounded shadow-sm mr-3"
+                                            alt="Sasy - Gentleman">
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Sasy</h5>
+                                            Gentleman
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="last-crawler-item">
+                                    <div class="media">
+                                        <img src="/static/images/gentelman.jpg"
+                                            class="last-crawler-image align-self-center rounded shadow-sm mr-3"
+                                            alt="Sasy - Gentleman">
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Sasy</h5>
+                                            Gentleman
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="last-crawler-item">
+                                    <div class="media">
+                                        <img src="/static/images/gentelman.jpg"
+                                            class="last-crawler-image align-self-center rounded shadow-sm mr-3"
+                                            alt="Sasy - Gentleman">
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Sasy</h5>
+                                            Gentleman
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="last-crawler-item">
+                                    <div class="media">
+                                        <img src="/static/images/gentelman.jpg"
+                                            class="last-crawler-image align-self-center rounded shadow-sm mr-3"
+                                            alt="Sasy - Gentleman">
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Sasy</h5>
+                                            Gentleman
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+    <script type="application/javascript" src="/node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script type="application/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="/node_modules/slick-carousel/slick/slick.min.js"></script>
+
+
+    <script>
+        $(".last-crawler-list").slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 2,
+            arrows: false,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    }
+
+                },
+                {
+
+                    breakpoint: 450,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                }
+            ]
+        });
+
+
+        $(document).ready(function () {});
+    </script>
+
+    <% /* Place any scripts contained in views at the end of the page. */ %>
+    <%- script %>
+
+</body>
+
+</html>

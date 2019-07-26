@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require("path");
 const _defaults = require("lodash/defaults");
 const RadioJavan = require('./js/modules/RadioJavan');
+var expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 
@@ -17,13 +18,22 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); // support encoded bodies
 
-app.engine('html', require('ejs').renderFile);
+// app.engine('html', require('ejs').renderFile);
 
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.set('views', __dirname + "/views");
+app.set('layout extractScripts', true)
+app.set('layout extractStyles', true)
+
+app.use(expressLayouts);
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
+  var locals = {
+    title: 'RJ Plus - RJ Downloader'
+  };
+
+  res.render('landing', locals);
+  // res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.get('/find', function (req, res) {
@@ -31,7 +41,11 @@ app.get('/find', function (req, res) {
 });
 
 app.get('/notfound', function (req, res) {
-  res.sendFile(path.join(__dirname + '/views/notFound.html'));
+  var locals = {
+    title: 'RJ Plus - Page Not Found'
+  };
+
+  res.render('notFound', locals);
 });
 
 app.post('/find', async function (req, res) {
@@ -53,7 +67,9 @@ app.post('/find', async function (req, res) {
     if (filePaths && filePaths.length > 0) {
       for (const filePath of filePaths) {
 
-        let downloadItem = {link: domain + filePath.link}
+        let downloadItem = {
+          link: domain + filePath.link
+        }
 
         if (radioJavan.type !== "video") {
           const fileDetail = await radioJavan.getFileDetail(domain + filePath.link);
@@ -77,19 +93,27 @@ app.post('/find', async function (req, res) {
 
 
   if (downloadLinks && downloadLinks.length) {
-    res.render("founded", {
+    var locals = {
+      title: 'RJ Plus - Found',
       downloadLinks: downloadLinks && downloadLinks.length ? downloadLinks : "not found!",
-      status: 1
-    });
+    };
+
+    res.render('founded', locals);
   } else {
-    res.render("notFound", {
-      status: 0,
-    });
+    var locals = {
+      title: 'RJ Plus - Not Found'
+    };
+
+    res.render('notFound', locals);
   }
 });
 
 app.get('*', function (req, res) {
-  res.render('404', {});
+  var locals = {
+    title: 'RJ Plus - 404 Not Found'
+  };
+
+  res.render('404', locals);
 });
 
 // Bind the app to a specified port

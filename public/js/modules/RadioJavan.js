@@ -43,16 +43,17 @@ const patterns = {
 
 let self = null;
 
-const detectType = () => {
+const detectType = (text) => {
 
+    // console.log(text);
 
-    if ((self.url).match((patterns.type.album)) != null)
+    if ((text).match((patterns.type.album)) != null)
         self.type = "album"
-    else if ((self.url).match((patterns.type.music)) != null)
+    else if ((text).match((patterns.type.music)) != null)
         self.type = "music"
-    else if ((self.url).match((patterns.type.video)) != null)
+    else if ((text).match((patterns.type.video)) != null)
         self.type = "video"
-    else if ((self.url).match((patterns.type.podcast)) != null)
+    else if ((text).match((patterns.type.podcast)) != null)
         self.type = "podcast"
     else
         self.type = "unknown"
@@ -62,12 +63,17 @@ const detectType = () => {
 
 const resolveFindFilePath = () => {
     return new Promise(resolve => {
-        axios.get(self.url)
+        axios.get(self.url, {
+                responseType: 'text',
+            })
             .then(function (response) {
                 // handle success
                 // console.log(response.data);
 
                 var body = response.data;
+                let bodyClone = body.replace(/\n/g, ' ').replace(/\s/g, '');
+                bodyClone = bodyClone.substr(bodyClone.indexOf('<metaproperty="og:url"content="') + 31)
+                detectType(bodyClone.substr(0, bodyClone.indexOf('"/>')))
 
                 switch (self.type) {
                     case "music":
@@ -95,7 +101,10 @@ const resolveFindFilePath = () => {
                         }
 
                         self.key = currentMP3Perm;
-                        self.filePaths.push({link: "/media/" + currentMP3Url + "." + currentMP3Type, title: ""});
+                        self.filePaths.push({
+                            link: "/media/" + currentMP3Url + "." + currentMP3Type,
+                            title: ""
+                        });
 
                         break;
                     case "album":
@@ -138,7 +147,10 @@ const resolveFindFilePath = () => {
                             const files = JSON.parse(currentAlbumMP3Related);
                             const basePathLink = currentAlbumMP3Url.replace(currentAlbumMP3Perm, "");
                             files.forEach(function (element) {
-                                self.filePaths.push({link: "/media/" + basePathLink + element.mp3 + ".mp3", title: ""});
+                                self.filePaths.push({
+                                    link: "/media/" + basePathLink + element.mp3 + ".mp3",
+                                    title: ""
+                                });
                             });
 
                         }
@@ -188,13 +200,25 @@ const resolveFindFilePath = () => {
                             });
                         }
 
-                        console.log(videoTitle);
+                        // console.log(videoTitle);
 
                         self.key = videoPermlink;
-                        self.filePaths.push({link: video1080p, title: videoTitle, quality: "1080p"});
+                        self.filePaths.push({
+                            link: video1080p,
+                            title: videoTitle,
+                            quality: "1080p"
+                        });
                         // self.filePaths.push({link: video4k, title: title, quality: "4K"});
-                        self.filePaths.push({link: video720p, title: videoTitle, quality: "720p"});
-                        self.filePaths.push({link: video480p, title: videoTitle, quality: "480p"});
+                        self.filePaths.push({
+                            link: video720p,
+                            title: videoTitle,
+                            quality: "720p"
+                        });
+                        self.filePaths.push({
+                            link: video480p,
+                            title: videoTitle,
+                            quality: "480p"
+                        });
 
                         break;
                     case "podcast":
@@ -221,8 +245,11 @@ const resolveFindFilePath = () => {
                         }
 
                         self.key = currentPodcastPerm;
-                        console.log("Here", self.key)
-                        self.filePaths.push({link: "/media/" + currentPodcastUrl + ".mp3", title: ""});
+                        // console.log("Here", self.key)
+                        self.filePaths.push({
+                            link: "/media/" + currentPodcastUrl + ".mp3",
+                            title: ""
+                        });
                         break;
                     default:
                         break;
@@ -293,8 +320,8 @@ const resolveFileDetail = (address) => {
             .setTagsToRead(["picture", "title", "artist", "album"])
             .read({
                 onSuccess: function (response) {
-                    console.log(response.tags.artist + " - " + response.tags.title);
-                    
+                    // console.log(response.tags.artist + " - " + response.tags.title);
+
                     var image = response.tags.picture;
                     if (image) {
                         for (var i = 0; i < image.data.length; i++) {
@@ -320,7 +347,7 @@ const resolveFileDetail = (address) => {
 
                 },
                 onError: function (error) {
-                    console.log(':(', error.type, error.info);
+                    // console.log(':(', error.type, error.info);
                     resolve({
                         title: "",
                         album: "",
@@ -342,7 +369,7 @@ const resolveVideoDetail = (address) => {
         new jsmediatags.Reader(address)
             .read({
                 onSuccess: (tag) => {
-                    console.log('Success!', tag);
+                    // console.log('Success!', tag);
                     resolve({});
                 },
                 onError: (error) => {
@@ -368,7 +395,7 @@ class RadioJavan {
     }
 
     async getFilePath() {
-        detectType();
+        // detectType();
         var x = await resolveFindFilePath();
         return x;
     }

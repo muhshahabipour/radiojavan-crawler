@@ -1,0 +1,32 @@
+<%- contentFor('header') %>
+<h1 class="page-title"><%= _locals.title %></h1>
+
+
+<% /*
+Content for the `body` section should either be the first thing defined
+in the view, or it has to be declared just like any other section.
+*/ %>
+<%- contentFor('body') %>
+
+<form action="/find" method="POST"
+    class="col-10 col-md-8 col-lg-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column form-wrapper w-100 align-items-end">
+        <div class="text-white w-100">
+            <h1>
+                1.Copy
+            </h1>
+            <h1>
+                2.Paste
+            </h1>
+            <h1>
+                3.Listen offline
+            </h1>
+        </div>
+        <input type="url" class="form-control form-control-lg border-0 shadow-sm rounded-pill" name="url"
+            placeholder="Radiojavan url" aria-label="URL" aria-describedby="button-find">
+        <div class="mt-3">
+            <button class="btn btn-purple btn-lg rounded-pill shadow" type="submit" style="min-width: 120px"
+                id="button-find">find</button>
+        </div>
+    </div>
+</form>

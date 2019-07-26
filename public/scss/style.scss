@@ -1,112 +1,82 @@
 @import "compass/css3";
+
+
+// Required
+
+$theme-colors: ("purple": #5006A3);
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/code";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/tables";
+@import "../../node_modules/bootstrap/scss/forms";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/transitions";
+@import "../../node_modules/bootstrap/scss/dropdown";
+@import "../../node_modules/bootstrap/scss/button-group";
+@import "../../node_modules/bootstrap/scss/input-group";
+@import "../../node_modules/bootstrap/scss/custom-forms";
+@import "../../node_modules/bootstrap/scss/nav";
+@import "../../node_modules/bootstrap/scss/navbar";
+@import "../../node_modules/bootstrap/scss/card";
+@import "../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../node_modules/bootstrap/scss/pagination";
+@import "../../node_modules/bootstrap/scss/badge";
+@import "../../node_modules/bootstrap/scss/jumbotron";
+@import "../../node_modules/bootstrap/scss/alert";
+@import "../../node_modules/bootstrap/scss/progress";
+@import "../../node_modules/bootstrap/scss/media";
+@import "../../node_modules/bootstrap/scss/list-group";
+@import "../../node_modules/bootstrap/scss/close";
+@import "../../node_modules/bootstrap/scss/toasts";
+@import "../../node_modules/bootstrap/scss/modal";
+@import "../../node_modules/bootstrap/scss/tooltip";
+@import "../../node_modules/bootstrap/scss/popover";
+@import "../../node_modules/bootstrap/scss/carousel";
+@import "../../node_modules/bootstrap/scss/spinners";
+@import "../../node_modules/bootstrap/scss/utilities";
+@import "../../node_modules/bootstrap/scss/print";
+
 body {
-    background-color: #1b1a18;
-    color: #ffffff;
+    background-image: url("/static/images/pexels-photo-761963.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
     min-height: 100vh;
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
     @include box-sizing(border-box);
+
+    font-size: 15px;
 }
 
 
 
-// Layout -- Main
-.main-layout{
-    @include flex(1);
+.last-crawler-wrapper {
+    background-color: rgba(#FFF0A1, 0.7);
+    width: 100%;
+    // padding: 0 2rem;
+    // overflow: hidden;
+    // overflow-x: scroll;
 }
 
-.app-site-wrapper {
-    padding: 8px 16px;
-    background-color: #1b1a18;
-    .social-wrapper {
-        .social-icon {
-            cursor: pointer;
-            width: 28px;
-            @include display-flex(flex);
-            @include align-items(center);
-            @include justify-content(center);
-        }
-    }
-}
+.last-crawler-item {
+    padding-right: 2rem;
 
-
-.menu-wrapper {
-    background: rgba(33, 33, 33, 0.8);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(10px);
-    @include box-shadow(0 0 10px rgba(0, 0, 0, 0.6)); // padding: 16px;
-    .navbar {
-        width: 100%;
-        .navbar-brand {
-            padding: 0;
-        }
-    }
-}
-
-$finder-heigth: calc(200px + 32px + 32px);
-.finder-wrapper {
-    height: $finder-heigth;
-    background-color: #ffffff;
-    position: relative;
-    .carousel,
-    .carousel-inner {
-        height: 100%;
-        width: 100%;
-    }
-    .carousel-item {
-        height: 100%;
-        width: 100%;
-        position: relative;
-        .carousel-image-item {
-            position: absolute;
-            z-index: 0;
-            right: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            @include background-size(cover);
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    }
-    #search-form {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        .form-wrapper {
-            @include box-shadow(0px 0px 10px -2px rgba(0, 0, 0, 0.51));
-            background-color: rgba(0, 0, 0, 0.29);
-            @include border-radius(8px, 8px);
-            padding: 8px;
-            @include transition(background-color 700ms);
-            border: 2px solid #aaaaaa;
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.5);
-            }
-            .form-control-feedback {
-                position: absolute;
-                top: 50%;
-                @include transform(translateY(-50%));
-                left: 32px;
-                color: #ffffff;
-                width: 24px;
-                z-index: 1000;
-            }
-            .form-control {
-                padding-left: 38px;
-                background-color: transparent;
-                color: #ffffff;
-                @include box-shadow(none !important);
-                &::placeholder {
-                    color: #cccccc;
-                }
-            }
-        }
+    .last-crawler-image {
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        background-color: #ffffff;
     }
 }
 
@@ -120,87 +90,55 @@ $finder-heigth: calc(200px + 32px + 32px);
 }
 
 
-// Layout -- Footer
-.footer-layout {
-    padding: 16px;
-    min-height: 60px;
-}
-
-
-// Component
-.rjplus-banner {
-    background-color: rgba(170, 39, 18, 0.4);
-    @include display-flex(flex);
-    @include align-items(center);
-    margin: -8px 0;
-    padding: 8px 16px;
-    cursor: pointer;
-    &:hover {
-        background-color: #aa2712;
-    }
-}
 
 .download-item-wrapper {
-    border: 1px solid #363636;
-    background-color: rgba(33, 33, 33, 0.45);
-    @include box-shadow(0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11));
-    padding: 8px;
-    @include border-radius(8px, 8px);
+
     .detail-wrapper {
         min-width: 0; // margin-right + image width + border 
         max-width: calc(100% - 8px - 50px - 1px);
+
         span {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
     }
+
     .cover-wrapper {
         margin-right: 8px;
-        .tumb-cover {
-            width: 50px;
-            height: 50px;
-            background: #000;
-            border: 1px solid #363636;
-            background-color: rgba(33, 33, 33, 0.45);
-            @include box-shadow(0 1px 10px rgba(0, 0, 0, 0.51), inset 0 0 0 rgba(137, 137, 137, 0.29), inset 0 0 5px rgba(0, 0, 0, 0.11));
-            background-image: url('/static/images/music-solid.svg');
-            background-size: 50%;
-            background-repeat: no-repeat;
-            background-position: center center;
-            @include border-radius(8px,
-            8px);
-            overflow: hidden;
-            img {
-                width: 100%;
-                height: inherit;
-            }
-        }
+
+
+    }
+}
+
+.founded-crawler-image-wrapper {
+    min-width: 64px;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    background-color: #ffffff;
+    background-image: url('/static/images/music-solid.svg');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: inherit;
     }
 }
 
 
 
-.logo-download-app{
+.logo-download-app {
     height: 40px;
-    &.logo-google{
+
+    &.logo-google {
         height: 60px;
     }
-    &.logo-cafebazzar{
+
+    &.logo-cafebazzar {
         margin: 10px 0;
     }
-}
-
-
-
-.examples-wrapper{
-    padding: 16px 0;
-    background-color: #6666;
-    ul{
-        list-style: none;
-    }
-}
-
-.navbar-brand-rjplus{
-    color: #a2a2a2 !important;
 }
