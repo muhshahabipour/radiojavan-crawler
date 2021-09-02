@@ -14,7 +14,7 @@
     "jsmediatags": "^3.9.2",
     "scrollpos-styler": "^0.7.1",
     "slick-carousel": "^1.8.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "browser-sync": "^2.26.7",
     "crawler": "^1.2.1",
     "ejs": "^2.6.2",
